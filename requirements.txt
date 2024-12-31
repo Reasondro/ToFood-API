@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+python-jose[cryptography]
+passlib[bcrypt]
+python-multipart
+numpy
+torch
+unsloth
+ipykernel
+llama-cpp-python

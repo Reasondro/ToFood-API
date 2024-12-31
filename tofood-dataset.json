@@ -1,0 +1,662 @@
+[
+  {
+    "instruction": "Resep ini sederhana banget. Apakah cocok untuk restoran kita? Jawab 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Nasi Goreng Kampung; Bahan Utama: Nasi Putih; Bahan: Nasi putih, bawang putih, bawang merah, cabai, kecap manis, telur; Langkah: Tumis bawang dan cabai, masukkan nasi, tambahkan kecap manis.",
+    "output": "No. Nasi Goreng Kampung terlalu sederhana dan banyak saingan. Untuk membedakan, tambahkan topping unik seperti seafood atau ayam panggang berbumbu khas."
+  },
+  {
+    "instruction": "Cek lagi, ini katanya spesial. Cocok tidak untuk menu kita? Jawab 'Yes' atau 'No' dan kasih alasan serta tips, ya!",
+    "input": "Resep: Sate Ayam Madura; Bahan Utama: Daging Ayam; Bahan: Daging ayam, bumbu kacang instan, kecap manis, bawang goreng; Langkah: Potong ayam, tusuk dengan tusukan sate, olesi bumbu kacang instan, bakar sambil dioles kecap, sajikan dengan bawang goreng.",
+    "output": "No. Sate ayam Madura seharusnya punya bumbu kacang khas. Hindari bumbu kacang instan, lebih baik racik bumbu sendiri (kacang tanah goreng, gula merah, bawang putih, cabai, dll.). Dengan bumbu segar, cita rasa bakal jauh lebih nikmat dan otentik."
+  },
+  {
+    "instruction": "Ini ada resep dari luar. Boleh nggak masuk menu kita? Beri 'Yes' atau 'No,' lalu jelaskan alasan dan saran perbaikan.",
+    "input": "Resep: Chicken Cordon Bleu; Bahan Utama: Dada Ayam; Bahan: Dada ayam, ham, keju lembaran, tepung roti, telur, garam, merica, minyak goreng; Langkah: Belah dada ayam, masukkan ham dan keju, gulung, celup ke telur, balur tepung roti, goreng hingga kuning keemasan.",
+    "output": "Yes. Sajian ini cukup klasik dan bisa menarik pelanggan. Supaya lebih istimewa, sediakan saus krim jamur atau saus keju kental buatan sendiri. Pastikan dada ayamnya empuk (bisa dipukul tipis dulu) dan gunakan keju dengan rasa kuat, seperti Swiss cheese."
+  },
+  {
+    "instruction": "Coba lihat, apakah resep ini layak tampil di menu kita? Jawab 'Yes' atau 'No,' lalu kasih penjelasan dan tips, ya.",
+    "input": "Resep: Mie Rebus Instant; Bahan Utama: Mie Kemasan; Bahan: Mie instan rasa ayam bawang, telur, daun bawang, cabai rawit, bawang goreng; Langkah: Rebus mie, masukkan bumbu kemasan, tambahkan telur saat merebus, taburi daun bawang dan bawang goreng.",
+    "output": "No. Mengandalkan mie instan dan bumbu kemasan kurang spesial untuk menu restoran. Buat kuah kaldu sendiri (misalnya rebusan tulang ayam atau udang), dan gunakan bumbu segar seperti bawang putih, bawang merah, serta rempah-rempah. Dengan begitu, rasa dan kualitas jauh lebih baik."
+  },
+  {
+    "instruction": "Ini resep lain lagi. Menurutmu gimana, cocok buat menu kita? Jangan lupa jawab 'Yes' atau 'No' dan kasih tips.",
+    "input": "Resep: Soto Betawi; Bahan Utama: Daging Sapi; Bahan: Daging sapi, santan, susu, bawang merah, bawang putih, jahe, serai, daun salam, garam, merica, minyak samin; Langkah: Rebus daging, tumis bumbu halus (bawang, jahe), masukkan santan dan susu, tambahkan daging, masak hingga bumbu meresap.",
+    "output": "Yes. Soto Betawi punya cita rasa khas dengan santan dan susu. Lebih baik pakai santan segar dan rebus daging sampai empuk. Jangan lupa tambahkan emping, potongan tomat, dan acar. Hidangkan dengan sambal cabai rawit hijau biar semakin mantap."
+  },
+  {
+    "instruction": "Lihat deh, ada yang ngirim resep kayak gini. Kita mau masukin ke menu, nggak? 'Yes' atau 'No' plus penjelasan dan saran!",
+    "input": "Resep: Pepes Ikan Kembung; Bahan Utama: Ikan Kembung; Bahan: Ikan kembung, daun pisang, bumbu halus (cabai, bawang merah, bawang putih, kemiri), daun kemangi, garam, gula, serai; Langkah: Lumuri ikan dengan bumbu, bungkus dengan daun pisang, kukus atau bakar sampai matang.",
+    "output": "Yes. Pepes ikan kembung adalah hidangan Nusantara yang banyak disukai. Pastikan ikannya segar dan bumbu halusnya melimpah. Jangan lupa tambahkan daun kemangi dan serai untuk aroma yang kuat, lalu panggang sebentar setelah dikukus agar daunnya lebih wangi."
+  },
+  {
+    "instruction": "Gimana kalau yang ini? Layak kita jual atau tidak? 'Yes'/'No,' terus kasih alasannya dan tips, dong.",
+    "input": "Resep: Ayam Goreng Tepung Saus Barbeku; Bahan Utama: Daging Ayam; Bahan: Ayam fillet, tepung bumbu instan, saus barbeku kemasan, minyak goreng, lada, garam; Langkah: Balur ayam dengan tepung instan, goreng hingga kuning kecokelatan, siram dengan saus barbeku kemasan.",
+    "output": "No. Semuanya serba instan, kurang menarik untuk menu restoran. Bikin tepung bumbu sendiri, misalnya campuran tepung terigu dan rempah. Gunakan saus barbeku buatan sendiri juga (tomat, cuka, gula palem, bawang bombay) supaya rasanya lebih unik dan premium."
+  },
+  {
+    "instruction": "Ada kiriman lagi nih. Menurutmu bisa kita jadikan menu? Jawab 'Yes' atau 'No,' dan beri saran sekalian.",
+    "input": "Resep: Sop Buntut; Bahan Utama: Buntut Sapi; Bahan: Buntut sapi, wortel, kentang, tomat, bawang putih, bawang bombay, kayu manis, cengkeh, pala, garam, merica; Langkah: Rebus buntut sapi hingga empuk, tumis bawang dan rempah, satukan dengan kuah rebusan, masukkan wortel dan kentang, masak sampai semua matang.",
+    "output": "Yes. Sop buntut klasik selalu menarik. Gunakan buntut berkualitas dan rebus lama supaya empuk. Jangan lupa tumis bawang dan rempah dulu agar lebih harum. Hidangkan dengan taburan bawang goreng dan sambal kecap untuk memperkaya rasa."
+  },
+  {
+    "instruction": "Resep ini juga baru masuk. Kira-kira pantas nggak untuk menu kita? 'Yes' atau 'No'? Lalu tambahkan usul perbaikan.",
+    "input": "Resep: Rendang Daging; Bahan Utama: Daging Sapi; Bahan: Daging sapi, santan, bumbu rendang instan, daun salam, serai, lengkuas, cabai giling; Langkah: Rebus daging dengan bumbu instan, masukkan santan, aduk hingga mengental, masak sampai daging empuk.",
+    "output": "No. Rendang sebaiknya pakai bumbu racikan sendiri, bukan instan. Giling cabai, bawang, lengkuas, jahe, kunyit segar. Masak perlahan sampai santan mengeluarkan minyak. Itu yang bikin rendang asli lebih harum dan gurih."
+  },
+  {
+    "instruction": "Ini menarik, tapi perlu dicek. Kamu pikir cocok nggak di menu kita? Beri 'Yes' atau 'No' dan sedikit masukan.",
+    "input": "Resep: Gado-Gado Jakarta; Bahan Utama: Aneka Sayuran; Bahan: Sayur rebus (kangkung, kacang panjang, tauge), ketupat, tahu, tempe, bumbu kacang siap pakai, kerupuk; Langkah: Rebus sayuran, potong tahu-tempe, susun di piring, siram bumbu kacang, taburi kerupuk.",
+    "output": "No. Gado-gado pakai bumbu kacang siap pakai kurang otentik. Bikin bumbu sendiri (kacang tanah goreng, cabai, bawang putih, gula merah, air asam jawa). Itu akan jauh lebih segar dan mantap. Jangan lupa beri taburan bawang goreng dan emping biar beda dari yang lain."
+  },
+  {
+    "instruction": "Ada resep Fusion nih. Masuk nggak ya ke daftar kita? Jawab 'Yes' atau 'No' dan berikan penjelasan singkat.",
+    "input": "Resep: Piza Rendang; Bahan Utama: Adonan Piza dan Daging Rendang; Bahan: Adonan piza siap pakai, sisa rendang, keju mozzarella, saus tomat; Langkah: Oles saus tomat, tata rendang di atasnya, tabur mozzarella, panggang hingga keju meleleh.",
+    "output": "Yes. Ini konsep yang unik dan bisa menarik pelanggan. Pastikan rendang dibikin dengan bumbu sedap (lebih baik homemade). Gunakan keju mozzarella berkualitas dan panggang sampai benar-benar leleh dan renyah di pinggir. Sajikan dengan sambal hijau sebagai pelengkap."
+  },
+  {
+    "instruction": "Cek resep ini. Kira-kira bagus nggak buat ditawarkan ke pelanggan kita? 'Yes' atau 'No,' plus saran ya.",
+    "input": "Resep: Tahu Isi Sayur; Bahan Utama: Tahu Kopong; Bahan: Tahu kopong, wortel parut, tauge, buncis cincang, bawang putih, tepung terigu, bumbu instan gorengan; Langkah: Tumis sayuran, campur bumbu instan, isi ke dalam tahu, balur tepung terigu, goreng sampai kecokelatan.",
+    "output": "No. Gunakan bumbu dasar sendiri, bukan bumbu instan, agar rasanya lebih segar dan beda. Campur bawang putih, merica, sedikit garam, serta ebi atau udang cincang untuk rasa gurih. Pastikan sayuran ditumis sampai setengah matang agar teksturnya masih renyah."
+  },
+  {
+    "instruction": "Nah, ini lagi. Kira-kira layak nggak buat menu utama kita? Jika ya, bilang 'Yes' dan kasih saran, kalau tidak, bilang 'No' dan beri alasan.",
+    "input": "Resep: Es Cendol Durian; Bahan Utama: Durian; Bahan: Cendol hijau, santan, gula merah cair, durian, es batu; Langkah: Siapkan gelas, masukkan cendol, tuang santan, tambahkan durian dan gula merah cair, beri es batu.",
+    "output": "Yes. Ini minuman penutup khas yang banyak penggemarnya. Supaya makin lezat, pastikan durian segar dan manis, dan gula merah direbus dengan daun pandan biar wanginya keluar. Kontrol kekentalan santan agar tidak terlalu encer."
+  },
+  {
+    "instruction": "Coba kita tengok resep ini. Oke nggak buat diperjualbelikan di restoran? Sebut 'Yes' atau 'No' dan tambahkan pendapatmu.",
+    "input": "Resep: Martabak Telur; Bahan Utama: Daging Giling dan Telur; Bahan: Kulit martabak siap pakai, daging sapi giling, bawang bombay, daun bawang, telur, garam, merica; Langkah: Tumis bawang dan daging, campur dengan telur kocok dan daun bawang, masukkan ke dalam kulit martabak, lipat, goreng hingga keemasan.",
+    "output": "Yes. Martabak telur selalu jadi favorit. Meskipun pakai kulit siap pakai masih oke, pastikan isian dagingnya banyak dan berbumbu. Agar lebih spesial, sajikan dengan acar mentimun dan saus sambal rumahan. Bisa juga tambahkan sedikit bumbu kari dalam isian untuk cita rasa berbeda."
+  },
+  {
+    "instruction": "Resep terakhir nih. Setuju untuk masukkan ke menu, atau tidak? Beri jawaban 'Yes'/'No' dan alasannya.",
+    "input": "Resep: Brownies Kukus Cokelat; Bahan Utama: Cokelat; Bahan: Tepung terigu, gula pasir, cokelat bubuk, telur, margarin, baking powder, cokelat batang, susu kental manis; Langkah: Campur bahan kering, kocok telur dan margarin cair, campur semua, tuang ke loyang, kukus sampai matang.",
+    "output": "Yes. Brownies kukus cokelat bisa jadi pilihan dessert manis. Untuk versi lebih premium, gunakan mentega alih-alih margarin, dan tambahkan potongan cokelat batang premium di dalam adonan. Bisa juga tambahkan topping keju parut atau glaze cokelat untuk tampilan lebih menarik."
+  },
+  {
+    "instruction": "Ada resep anyar lagi, nih. Menurutmu, cocok nggak buat kita sajikan di restoran? Jika iya, bilang 'Yes' dan beri alasan, kalau nggak, langsung 'No' plus masukan.",
+    "input": "Resep: Seblak Pedas; Bahan Utama: Kerupuk; Bahan: Kerupuk kanji, bumbu halus (cabai rawit, bawang merah, bawang putih, kencur), telur, bakso, sosis, garam, gula; Langkah: Rendam kerupuk sampai lunak, tumis bumbu halus, masukkan telur, bakso, dan sosis, bumbui garam dan gula, terakhir campur kerupuk dan aduk hingga bumbu meresap.",
+    "output": "Yes. Seblak pedas populer di kalangan anak muda. Pastikan kencur dan cabai segar agar aroma khas seblak terasa. Hindari penggunaan bumbu instan, dan tambahkan sayuran seperti sawi hijau atau tauge supaya lebih bernutrisi."
+  },
+  {
+    "instruction": "Ini ada resep khas Aceh. Kira-kira bisa kita jual di restoran? Jawab 'Yes' atau 'No' dan kasih komentar serta saran.",
+    "input": "Resep: Mie Aceh; Bahan Utama: Mie Kuning Tebal; Bahan: Mie kuning, daging sapi/udang, bawang merah, bawang putih, cabai giling, rempah (kapulaga, cengkeh, kayu manis), tomat, kol, garam, merica; Langkah: Tumis bawang dan rempah, masukkan daging atau udang, tambahkan cabai giling, tomat, dan kol, masukkan mie, aduk rata dengan bumbu.",
+    "output": "Yes. Mie Aceh terkenal dengan rasa rempah yang kuat. Gunakan rempah segar dan tumis hingga wangi. Kalau bisa, buat kaldu sapi/udang terlebih dulu supaya mie lebih gurih. Tambahkan acar bawang dan emping sebagai pendamping."
+  },
+  {
+    "instruction": "Ada resep kue tradisional juga. Kira-kira layak jual nggak? Kasih jawaban 'Yes' atau 'No' plus ulasan, ya.",
+    "input": "Resep: Kue Lumpur; Bahan Utama: Kentang; Bahan: Kentang kukus, tepung terigu, santan, telur, gula pasir, vanili, margarin, garam; Langkah: Haluskan kentang kukus, campur dengan santan, telur, gula, dan tepung, tambahkan vanili, tuang ke cetakan, panggang atau masak di atas teflon sampai matang.",
+    "output": "Yes. Kue lumpur lembut dan punya cita rasa manis gurih. Pakai santan segar agar lebih kaya rasa. Bisa juga tambahkan kelapa muda parut atau kismis di atasnya untuk variasi. Pastikan teksturnya lembut dan tidak terlalu padat."
+  },
+  {
+    "instruction": "Coba lihat resep ini. Kira-kira cocok nggak buat menu kita? Jawab 'Yes' atau 'No' dan tambahkan saran atau kritik.",
+    "input": "Resep: Rawon; Bahan Utama: Daging Sapi; Bahan: Daging sapi, kluwek, bawang merah, bawang putih, jahe, lengkuas, daun salam, serai, garam, merica, tauge pendek; Langkah: Rebus daging hingga empuk, tumis bumbu halus (termasuk kluwek), masukkan ke dalam kaldu, tambahkan daging, biarkan bumbu meresap, sajikan dengan tauge pendek.",
+    "output": "Yes. Rawon memiliki ciri khas kuah hitam dari kluwek dan aroma rempah yang kuat. Pastikan kluwek berkualitas bagus agar tidak pahit. Sajikan dengan sambal, kerupuk udang, dan telur asin. Dagingnya juga harus direbus hingga benar-benar empuk."
+  },
+  {
+    "instruction": "Terakhir nih, menu jajanan tradisional. Bagus nggak buat kita jual? Jawab saja 'Yes' atau 'No,' lengkap dengan sedikit masukan.",
+    "input": "Resep: Klepon; Bahan Utama: Tepung Ketan; Bahan: Tepung ketan, air hangat, pasta pandan, gula merah sisir, kelapa parut; Langkah: Campur tepung ketan dengan air hangat dan pasta pandan sampai kalis, bentuk bulat dan isi gula merah, rebus hingga mengapung, gulingkan di kelapa parut.",
+    "output": "Yes. Klepon sering dicari karena cita rasa manis dan tekstur kenyalnya. Gunakan gula merah kualitas bagus yang benar-benar lumer. Kelapa parutnya sebaiknya dikukus sebentar agar tidak cepat basi. Tawarkan dalam kemasan cantik agar menarik."
+  },
+  {
+    "instruction": "Berikut ada resep dari Italia. Cocok nggak buat kita jual di resto? 'Yes' atau 'No,' plus saran.",
+    "input": "Resep: Pizza Margherita; Bahan Utama: Adonan Pizza; Bahan: Adonan pizza, saus tomat, keju mozzarella, tomat segar, daun basil, minyak zaitun, garam; Langkah: Oles saus tomat ke adonan, tata irisan tomat dan mozzarella, perciki minyak zaitun, panggang hingga keju meleleh, taburi basil segar dan garam secukupnya.",
+    "output": "Yes. Pizza Margherita klasik yang ringan dan segar. Pastikan saus tomat berkualitas (bisa dibuat dari tomat segar). Pilih mozzarella yang bagus dan jangan lupa tambahkan daun basil setelah dipanggang untuk menjaga aroma herba."
+  },
+  {
+    "instruction": "Ini masakan ala Inggris. Apakah pas buat menu kita? Balas dengan 'Yes' atau 'No' dan penjelasan, ya.",
+    "input": "Resep: Beef Wellington; Bahan Utama: Daging Sapi Tenderloin; Bahan: Daging sapi tenderloin, puff pastry, jamur cincang (duxelles), mustard, garam, merica, telur; Langkah: Lumuri daging dengan mustard, bungkus dengan tumisan jamur dan pastry, oles telur di atas pastry, panggang hingga matang.",
+    "output": "Yes. Beef Wellington punya kesan mewah. Pastikan dagingnya dimasak medium agar tetap juicy. Tumisan jamur (duxelles) harus benar-benar kering supaya adonan tidak lembek. Sajikan dengan saus anggur merah atau gravy untuk menambah kelezatan."
+  },
+  {
+    "instruction": "Resep Jepang nih. Perlu kita tampilkan? Beri 'Yes' atau 'No' dan sampaikan alasannya.",
+    "input": "Resep: Sushi Roll; Bahan Utama: Nasi Sushi; Bahan: Nasi sushi, nori, isian (misalnya ikan salmon segar, alpukat, timun), cuka beras, gula, garam, kecap asin, wasabi; Langkah: Campur nasi dengan cuka, gula, garam, letakkan di nori, tambahkan isian, gulung rapat, iris, sajikan dengan kecap dan wasabi.",
+    "output": "Yes. Sushi roll bisa menarik pasar yang lebih luas. Pastikan ikan salmon segar dengan kualitas sashimi. Perhatikan proporsi nasi dan isian agar seimbang. Sediakan kecap asin (shoyu) dan wasabi berkualitas, plus acar jahe (gari) untuk lengkapnya."
+  },
+  {
+    "instruction": "Makanan Meksiko ini lagi hits. Menurutmu gimana, cocok dimasukkan? 'Yes' atau 'No,' dan beri pertimbangan.",
+    "input": "Resep: Chicken Tacos; Bahan Utama: Daging Ayam; Bahan: Tortilla jagung, ayam suwir berbumbu (cabai bubuk, cumin, bawang putih), selada, keju parut, salsa tomat, saus krim asam; Langkah: Tumis ayam dengan bumbu, susun di tortilla, tambahkan selada, keju, salsa, dan krim asam.",
+    "output": "Yes. Chicken tacos itu simpel dan disukai banyak orang. Gunakan bumbu khas (cumin, paprika) untuk rasa autentik. Lebih baik buat salsa segar (tomat, bawang, ketumbar, cabai). Sajikan dengan irisan jeruk nipis untuk sentuhan asam segar."
+  },
+  {
+    "instruction": "Hidangan pencuci mulut khas Italia. Kira-kira layak dicoba nggak? 'Yes' atau 'No' lalu jelasin sedikit.",
+    "input": "Resep: Tiramisu; Bahan Utama: Keju Mascarpone; Bahan: Biskuit ladyfinger, kopi espresso, keju mascarpone, telur, gula, bubuk kakao; Langkah: Celup biskuit ke dalam kopi, susun di loyang, kocok mascarpone dengan telur dan gula, tuang di atas biskuit, tabur bubuk kakao, dinginkan.",
+    "output": "Yes. Tiramisu itu dessert elegan yang banyak penggemarnya. Gunakan kopi espresso yang pahit dan wangi. Pastikan telur segar (atau pakai versi pasteurisasi), dan beri waktu cukup di kulkas agar tekstur set. Sedikit taburan dark chocolate parut juga bisa menambah cita rasa."
+  },
+  {
+    "instruction": "Resep khas Italia ini cukup populer. Apakah cocok untuk restoran kita? Jawab 'Yes' atau 'No,' dan jelaskan alasannya.",
+    "input": "Resep: Carbonara; Bahan Utama: Pasta Spaghetti; Bahan: Spaghetti, telur, keju parmesan, daging asap, lada hitam, bawang putih, minyak zaitun; Langkah: Masak spaghetti hingga al dente, tumis bawang putih dan daging asap, campur telur dengan parmesan, gabungkan dengan pasta sambil aduk hingga creamy.",
+    "output": "Yes. Carbonara klasik sangat disukai, tapi pastikan menggunakan bahan berkualitas seperti parmesan asli dan daging asap yang segar. Jangan tambahkan krim karena versi autentik tidak menggunakannya. Sajikan dengan taburan lada hitam segar untuk rasa optimal."
+  },
+  {
+    "instruction": "Lihat nih, ada menu makanan ringan dari Timur Tengah. Cocok nggak kita masukkan? 'Yes' atau 'No' beserta alasan.",
+    "input": "Resep: Falafel; Bahan Utama: Kacang Chickpea; Bahan: Chickpea, bawang putih, bawang merah, parsley, ketumbar, jintan, tepung, garam, minyak goreng; Langkah: Haluskan chickpea dan bahan lainnya, bentuk bulat, goreng hingga kecokelatan.",
+    "output": "Yes. Falafel cocok untuk menu vegetarian. Pastikan chickpea direndam dengan baik agar tekstur lembut. Tambahkan sedikit lemon untuk rasa segar, dan sajikan dengan saus tahini atau yogurt untuk melengkapi."
+  },
+  {
+    "instruction": "Cek menu dessert ini. Layak nggak untuk masuk ke restoran? 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Chocolate Lava Cake; Bahan Utama: Cokelat; Bahan: Dark chocolate, mentega, gula, telur, tepung terigu, bubuk kakao; Langkah: Lelehkan cokelat dengan mentega, campur bahan lainnya, tuang ke cetakan, panggang sebentar agar bagian tengahnya tetap lumer.",
+    "output": "Yes. Chocolate lava cake sangat populer sebagai dessert. Gunakan cokelat berkualitas tinggi untuk rasa maksimal. Sajikan dengan es krim vanila atau whipped cream untuk kesan lebih mewah."
+  },
+  {
+    "instruction": "Ini ada menu street food terkenal. Layak nggak untuk restoran kita? Jawab 'Yes' atau 'No,' lalu beri saran.",
+    "input": "Resep: Corn Dog; Bahan Utama: Sosis; Bahan: Sosis, tepung jagung, tepung terigu, susu, telur, baking powder, garam, minyak goreng; Langkah: Tusuk sosis, celupkan ke adonan tepung jagung, goreng hingga matang.",
+    "output": "No. Corn dog lebih cocok untuk jajanan pasar atau festival. Agar lebih menarik, tambahkan variasi isi seperti keju mozzarella atau adonan berbumbu. Sajikan dengan saus cocol seperti mustard madu untuk memberikan nilai tambah."
+  },
+  {
+    "instruction": "Resep ini dari Korea. Apakah cocok untuk menu kita? Beri 'Yes' atau 'No' plus alasannya.",
+    "input": "Resep: Bibimbap; Bahan Utama: Nasi Putih; Bahan: Nasi putih, daging sapi cincang, wortel, bayam, zucchini, telur, gochujang, minyak wijen, bawang putih; Langkah: Tumis sayuran dan daging dengan minyak wijen, tata di atas nasi, tambahkan telur setengah matang dan gochujang.",
+    "output": "Yes. Bibimbap penuh warna dan bergizi. Gunakan gochujang berkualitas dan tambahkan wijen sangrai untuk aroma. Sajikan dalam mangkuk panas (dolsot) untuk kesan autentik."
+  },
+  {
+    "instruction": "Lihat resep dessert tradisional Jepang ini. Cocok nggak buat restoran? 'Yes' atau 'No' plus penjelasan.",
+    "input": "Resep: Mochi Ice Cream; Bahan Utama: Tepung Ketan; Bahan: Tepung ketan, gula, air, es krim berbagai rasa; Langkah: Campur tepung ketan dengan air dan gula, kukus hingga matang, bentuk adonan dan isi dengan es krim, simpan di freezer.",
+    "output": "Yes. Mochi ice cream menarik untuk menu dessert. Gunakan es krim premium dengan variasi rasa unik seperti matcha atau yuzu. Pastikan tekstur mochi lembut namun tidak lengket."
+  },
+  {
+    "instruction": "Cek lagi, kali ini ada menu dari India. Layak nggak untuk restoran kita? Jawab 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Butter Chicken; Bahan Utama: Daging Ayam; Bahan: Ayam, tomat, mentega, krim, bawang bombay, bawang putih, jahe, garam masala, kunyit, cabai bubuk; Langkah: Masak ayam dengan bumbu rempah, tambahkan tomat, mentega, dan krim hingga kuah kental.",
+    "output": "Yes. Butter chicken sangat populer di banyak negara. Gunakan ayam tanpa tulang dan masak hingga bumbu meresap. Sajikan dengan naan atau nasi basmati untuk pengalaman autentik."
+  },
+  {
+    "instruction": "Coba lihat, ini ada menu brunch dari Amerika. Bagus nggak buat masuk menu? Jawab 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Eggs Benedict; Bahan Utama: Telur; Bahan: Telur, muffin Inggris, ham, mentega, saus hollandaise; Langkah: Poach telur, susun di atas muffin dengan ham, tuang saus hollandaise di atasnya.",
+    "output": "Yes. Eggs Benedict cocok untuk menu brunch. Pastikan saus hollandaise dibuat segar dengan mentega berkualitas. Tambahkan variasi seperti salmon asap untuk daya tarik lebih."
+  },
+  {
+    "instruction": "Ada resep cepat saji dari Meksiko. Cocok nggak buat restoran kita? Beri jawaban 'Yes' atau 'No' plus alasan.",
+    "input": "Resep: Quesadilla; Bahan Utama: Tortilla; Bahan: Tortilla, keju, daging ayam suwir, paprika, bawang bombay; Langkah: Isi tortilla dengan bahan-bahan, lipat, dan panggang hingga keju meleleh.",
+    "output": "Yes. Quesadilla sederhana namun populer. Pastikan keju yang digunakan memiliki rasa yang kuat, seperti cheddar atau Monterey Jack. Sajikan dengan saus salsa segar dan krim asam."
+  },
+  {
+    "instruction": "Ini menu dessert khas Perancis. Layak nggak buat restoran kita? 'Yes' atau 'No' dan beri alasannya.",
+    "input": "Resep: Crème Brûlée; Bahan Utama: Krim; Bahan: Krim kental, kuning telur, gula, ekstrak vanila, gula untuk karamelisasi; Langkah: Campur krim dengan kuning telur dan gula, panggang dalam oven, taburi gula dan bakar hingga menjadi karamel.",
+    "output": "Yes. Crème Brûlée adalah dessert mewah yang disukai banyak orang. Gunakan vanila asli untuk aroma maksimal. Pastikan tekstur lembut di dalam dan karamel renyah di atas."
+  },
+  {
+    "instruction": "Ada resep dari Thailand nih. Apakah cocok untuk menu kita? Jawab 'Yes' atau 'No' plus masukan.",
+    "input": "Resep: Tom Yum Soup; Bahan Utama: Udang; Bahan: Udang, kaldu ayam, serai, daun jeruk, cabai, jahe, jamur, air jeruk nipis, kecap ikan; Langkah: Rebus kaldu dengan bumbu, masukkan udang dan jamur, tambahkan air jeruk nipis dan kecap ikan.",
+    "output": "Yes. Tom Yum Soup adalah hidangan segar dan populer. Gunakan udang segar dan sesuaikan tingkat kepedasan sesuai selera pelanggan. Sajikan dengan nasi putih untuk melengkapi."
+  },
+  {
+    "instruction": "Ini resep dari Italia lagi. Bagaimana menurutmu, cocok untuk restoran kita? 'Yes' atau 'No' dan beri saran.",
+    "input": "Resep: Risotto Milanese; Bahan Utama: Beras Arborio; Bahan: Beras arborio, kaldu ayam, bawang bombay, mentega, keju parmesan, saffron, anggur putih; Langkah: Tumis bawang bombay, tambahkan beras, masak dengan kaldu bertahap, aduk hingga creamy, tambahkan saffron dan keju.",
+    "output": "Yes. Risotto Milanese punya rasa elegan. Gunakan saffron asli untuk warna dan aroma yang khas. Tambahkan sedikit mentega di akhir untuk tekstur lembut."
+  },
+  {
+    "instruction": "Cek menu vegan dari Barat ini. Layak nggak untuk restoran kita? 'Yes' atau 'No,' beri alasan.",
+    "input": "Resep: Vegan Burger; Bahan Utama: Patty Vegan; Bahan: Patty berbasis kacang atau tempe, roti burger, selada, tomat, bawang bombay, saus vegan; Langkah: Panggang patty, susun dengan roti dan isian sayur, tambahkan saus vegan.",
+    "output": "Yes. Vegan burger semakin diminati. Gunakan patty berkualitas dengan tekstur daging, dan tambahkan saus unik seperti aioli vegan atau pesto."
+  },
+  {
+    "instruction": "Ada makanan pedas dari Korea. Menurutmu layak untuk menu kita? Jawab 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Tteokbokki; Bahan Utama: Kue Beras; Bahan: Kue beras, gochujang, gula, bawang putih, kecap, kaldu ikan, daun bawang; Langkah: Rebus kue beras dengan kaldu dan bumbu hingga empuk dan bumbu meresap.",
+    "output": "Yes. Tteokbokki adalah makanan ringan yang populer. Pastikan gochujang yang digunakan tidak terlalu asin, dan tambahkan topping seperti keju leleh untuk variasi."
+  },
+  {
+    "instruction": "Lihat resep ini, kira-kira layak nggak buat menu restoran kita? 'Yes' atau 'No' dan tambahkan alasan.",
+    "input": "Resep: Spaghetti Bolognese; Bahan Utama: Pasta Spaghetti; Bahan: Spaghetti, daging cincang, saus tomat kemasan, bawang bombay, bawang putih, garam, lada; Langkah: Tumis bawang, masak daging cincang, tambahkan saus tomat, campur dengan spaghetti.",
+    "output": "No. Spaghetti Bolognese terlalu mainstream dan tidak menawarkan sesuatu yang baru. Agar menarik, gunakan saus tomat buatan sendiri dan tambahkan bahan unik seperti herba segar atau red wine untuk rasa yang lebih kompleks."
+  },
+  {
+    "instruction": "Resep ini lumayan simpel. Apakah layak untuk menu restoran kita? Jawab 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Sandwich Tuna; Bahan Utama: Tuna Kaleng; Bahan: Tuna kaleng, roti tawar, mayones, selada, tomat; Langkah: Campur tuna dengan mayones, letakkan di antara roti dengan selada dan tomat.",
+    "output": "No. Sandwich tuna terlalu sederhana dan mudah ditemukan di mana-mana. Tambahkan bahan seperti alpukat, telur rebus, atau dressing buatan sendiri agar lebih menarik dan berbeda dari versi supermarket."
+  },
+  {
+    "instruction": "Cek resep dessert ini. Kira-kira menarik nggak untuk pelanggan kita? 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Pudding Cokelat; Bahan Utama: Bubuk Pudding Kemasan; Bahan: Bubuk pudding cokelat instan, susu, gula pasir, cokelat serut; Langkah: Masak bubuk pudding dengan susu dan gula, dinginkan, taburi cokelat serut.",
+    "output": "No. Pudding cokelat instan kurang spesial untuk restoran. Buatlah pudding dari bahan segar dengan cokelat premium untuk rasa dan tekstur yang lebih berkualitas. Tambahkan topping unik seperti saus karamel asin atau buah segar."
+  },
+  {
+    "instruction": "Resep ini cukup familiar. Layak nggak untuk restoran kita? Beri jawaban 'Yes' atau 'No' dan alasan.",
+    "input": "Resep: Burger Ayam; Bahan Utama: Daging Ayam; Bahan: Patty ayam, roti burger, selada, tomat, saus sambal; Langkah: Goreng patty ayam, susun dengan roti dan sayuran, tambahkan saus sambal.",
+    "output": "No. Burger ayam terlalu standar dan tidak cukup unik untuk menarik pelanggan. Buat patty ayam dengan rempah khas atau tambahkan saus spesial seperti aioli bawang putih atau saus madu mustard untuk pembeda."
+  },
+  {
+    "instruction": "Ini menu ringan. Menurutmu bisa menarik pelanggan kita? 'Yes' atau 'No,' beri alasannya.",
+    "input": "Resep: French Fries; Bahan Utama: Kentang; Bahan: Kentang, minyak goreng, garam; Langkah: Potong kentang, goreng hingga garing, taburi garam.",
+    "output": "No. Kentang goreng terlalu umum dan banyak saingan. Agar lebih menarik, tambahkan bumbu unik seperti paprika, keju parmesan, atau saus buatan sendiri seperti truffle mayo."
+  },
+  {
+    "instruction": "Cek menu minuman ini. Layak nggak buat menu restoran kita? 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Es Teh Manis; Bahan Utama: Teh Celup; Bahan: Teh celup, gula pasir, es batu; Langkah: Seduh teh, tambahkan gula, tuang ke gelas berisi es batu.",
+    "output": "No. Es teh manis terlalu standar untuk restoran. Gunakan teh premium atau tambahkan rasa baru seperti lemon, mint, atau buah-buahan untuk memberikan nilai lebih."
+  },
+  {
+    "instruction": "Ini ada resep dari Jepang. Bagus nggak untuk menu kita? Jawab 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Onigiri; Bahan Utama: Nasi; Bahan: Nasi, nori, isian (abon atau tuna), garam; Langkah: Bentuk nasi dengan isian, bungkus dengan nori.",
+    "output": "No. Onigiri terlalu biasa dan lebih cocok untuk makanan cepat saji. Tambahkan isian premium seperti salmon mentai atau saus truffle untuk membuatnya lebih menarik."
+  },
+  {
+    "instruction": "Cek menu masakan ini. Layak nggak untuk restoran kita? 'Yes' atau 'No' plus alasan.",
+    "input": "Resep: Sup Ayam; Bahan Utama: Ayam; Bahan: Ayam, wortel, kentang, bawang putih, bawang bombay, garam, merica; Langkah: Rebus ayam dengan bawang dan rempah, tambahkan wortel dan kentang, masak hingga matang.",
+    "output": "No. Sup ayam terlalu biasa untuk restoran. Buat variasi seperti sup ayam ala Thailand dengan tambahan santan dan serai, atau tambahkan rempah eksotis untuk cita rasa berbeda."
+  },
+  {
+    "instruction": "Cek menu jajanan pasar ini. Layak nggak buat restoran? 'Yes' atau 'No' dan beri alasannya.",
+    "input": "Resep: Pisang Goreng; Bahan Utama: Pisang; Bahan: Pisang, tepung terigu, gula, minyak goreng; Langkah: Potong pisang, celupkan ke adonan tepung, goreng hingga matang.",
+    "output": "No. Pisang goreng terlalu sederhana untuk restoran. Tambahkan variasi seperti pisang goreng madu, topping keju, atau saus cokelat untuk daya tarik lebih."
+  },
+  {
+    "instruction": "Resep ini katanya nostalgia banget. Tapi cocok nggak untuk restoran kita? Jawab 'Yes' atau 'No' plus komentar.",
+    "input": "Resep: Nasi Telur Kecap; Bahan Utama: Nasi Putih; Bahan: Nasi, telur goreng, kecap manis; Langkah: Letakkan telur di atas nasi, siram kecap manis.",
+    "output": "No. Nasi telur kecap terlalu sederhana untuk restoran. Tambahkan lauk tambahan seperti ayam suwir berbumbu, sambal, atau saus creamy untuk meningkatkan daya tarik."
+  },
+  {
+    "instruction": "Resep ini dari Korea. Bagus nggak buat menu kita? Jawab 'Yes' atau 'No,' tambahkan alasan.",
+    "input": "Resep: Kimchi; Bahan Utama: Sawi Putih; Bahan: Sawi putih, garam, bubuk cabai, bawang putih, jahe, kecap ikan; Langkah: Rendam sawi dalam garam, campur dengan bumbu, fermentasi selama beberapa hari.",
+    "output": "No. Kimchi sebagai menu tunggal kurang menarik. Gunakan sebagai pelengkap hidangan lain seperti nasi goreng kimchi atau sup kimchi untuk nilai lebih."
+  },
+  {
+    "instruction": "Menu ringan ini cukup dikenal. Tapi apakah cukup layak untuk restoran? 'Yes' atau 'No' dan beri penjelasan.",
+    "input": "Resep: Roti Panggang Keju; Bahan Utama: Roti Tawar; Bahan: Roti tawar, keju, mentega; Langkah: Oles mentega di roti, isi keju, panggang hingga keju meleleh.",
+    "output": "No. Roti panggang keju terlalu sederhana untuk restoran. Gunakan roti artisan, keju berkualitas premium, dan tambahkan bahan seperti tomat atau pesto untuk variasi."
+  },
+  {
+    "instruction": "Resep tradisional ini cukup umum. Menurutmu, layak nggak masuk menu? 'Yes' atau 'No,' tambahkan masukan.",
+    "input": "Resep: Bubur Ayam; Bahan Utama: Beras; Bahan: Beras, ayam, bawang goreng, kecap manis, kerupuk; Langkah: Masak bubur dari beras, tambahkan ayam suwir dan topping.",
+    "output": "No. Bubur ayam terlalu biasa untuk restoran. Tambahkan inovasi seperti kuah kari atau topping unik seperti telur asin dan sambal matah agar lebih menarik."
+  },
+  {
+    "instruction": "Menu dessert ini katanya klasik. Apakah cukup menarik untuk pelanggan kita? 'Yes' atau 'No,' beri masukan.",
+    "input": "Resep: Kue Bolu; Bahan Utama: Tepung Terigu; Bahan: Tepung terigu, telur, gula, margarin, baking powder; Langkah: Campur bahan, panggang hingga matang.",
+    "output": "No. Kue bolu terlalu sederhana untuk restoran. Buatlah variasi seperti bolu marmer dengan cokelat premium atau tambahkan isian krim untuk kesan lebih mewah."
+  },
+  {
+    "instruction": "Cek menu ini, kira-kira cocok nggak untuk restoran kita? Jawab 'Yes' atau 'No' dan beri alasannya.",
+    "input": "Resep: Ayam Taliwang; Bahan Utama: Ayam Kampung; Bahan: Ayam kampung, cabai merah, bawang putih, bawang merah, terasi, garam, gula, santan; Langkah: Haluskan bumbu, lumuri ayam, panggang sambil olesi santan hingga matang.",
+    "output": "Yes. Ayam Taliwang khas dengan rasa pedas gurih. Pastikan menggunakan ayam kampung yang empuk dan panggang hingga aroma bakar keluar. Sajikan dengan plecing kangkung sebagai pelengkap."
+  },
+  {
+    "instruction": "Resep ini cukup sederhana. Menurutmu layak nggak masuk menu restoran kita? 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Telur Balado; Bahan Utama: Telur; Bahan: Telur rebus, cabai merah, bawang putih, bawang merah, garam, gula; Langkah: Goreng telur rebus, tumis bumbu hingga matang, campur dengan telur.",
+    "output": "No. Telur balado terlalu umum untuk restoran. Untuk menarik perhatian pelanggan, tambahkan inovasi seperti telur isian atau gunakan bumbu balado dengan tambahan terasi bakar untuk rasa yang lebih kaya."
+  },
+  {
+    "instruction": "Ini menu dessert sederhana. Cocok nggak buat restoran kita? Jawab 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Pancake Cokelat; Bahan Utama: Tepung Terigu; Bahan: Tepung terigu, telur, susu, bubuk cokelat, gula, mentega; Langkah: Campur bahan, masak di teflon, sajikan dengan taburan gula halus.",
+    "output": "Yes. Pancake cokelat cukup populer. Untuk membuatnya lebih spesial, tambahkan topping seperti whipped cream, buah segar, atau saus cokelat leleh untuk daya tarik lebih."
+  },
+  {
+    "instruction": "Lihat menu makanan ringan ini. Layak nggak untuk restoran kita? 'Yes' atau 'No' plus alasan.",
+    "input": "Resep: Martabak Mini; Bahan Utama: Tepung Terigu; Bahan: Tepung terigu, susu, telur, gula, keju, cokelat meises; Langkah: Campur bahan dasar, masak di cetakan kecil, tambahkan topping.",
+    "output": "Yes. Martabak mini menarik untuk snack ringan. Pastikan variasi topping yang beragam, seperti Nutella, cream cheese, atau stroberi untuk menambah daya tarik."
+  },
+  {
+    "instruction": "Resep ini cukup klasik. Bagaimana menurutmu, layak nggak masuk menu kita? 'Yes' atau 'No' dan beri saran.",
+    "input": "Resep: Capcay; Bahan Utama: Aneka Sayuran; Bahan: Wortel, brokoli, kembang kol, bawang putih, saus tiram, garam, merica; Langkah: Tumis bawang putih, masukkan sayuran, tambahkan saus tiram, masak hingga matang.",
+    "output": "No. Capcay terlalu standar untuk restoran. Tambahkan bahan premium seperti udang atau jamur shitake untuk membuatnya lebih menarik. Gunakan saus spesial buatan sendiri untuk rasa lebih autentik."
+  },
+  {
+    "instruction": "Cek menu dessert dari Italia ini. Apakah cocok untuk restoran kita? Jawab 'Yes' atau 'No' plus komentar.",
+    "input": "Resep: Panna Cotta; Bahan Utama: Krim Kental; Bahan: Krim kental, susu, gula, gelatin, vanila, saus buah; Langkah: Campur krim, gula, dan gelatin, masak hingga larut, dinginkan, tambahkan saus buah.",
+    "output": "Yes. Panna cotta adalah dessert elegan yang menarik. Pastikan tekstur lembut dan gunakan saus buah segar seperti raspberry atau mangga untuk memberikan kesan premium."
+  },
+  {
+    "instruction": "Resep ini katanya populer di kalangan anak muda. Cocok nggak buat restoran? 'Yes' atau 'No' plus penjelasan.",
+    "input": "Resep: Indomie Goreng Telur; Bahan Utama: Mie Instan; Bahan: Mie goreng instan, telur, bawang goreng, saus sambal; Langkah: Rebus mie, goreng telur, campur semua bahan.",
+    "output": "No. Indomie goreng terlalu mainstream untuk restoran. Tambahkan inovasi seperti topping premium (misalnya daging wagyu atau telur onsen) dan saus buatan sendiri untuk menjadikannya lebih eksklusif."
+  },
+  {
+    "instruction": "Ini ada resep khas Jepang. Apakah cocok untuk menu kita? Jawab 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Chicken Katsu; Bahan Utama: Daging Ayam; Bahan: Daging ayam, tepung roti, telur, garam, lada, saus katsu; Langkah: Lumuri ayam dengan telur dan tepung roti, goreng hingga matang, sajikan dengan saus.",
+    "output": "Yes. Chicken katsu populer dan cocok untuk berbagai kalangan. Sajikan dengan nasi hangat dan salad untuk membuatnya lebih komplet. Pastikan saus katsu buatan sendiri untuk rasa autentik."
+  },
+  {
+    "instruction": "Resep ini katanya dessert klasik dari Perancis. Layak nggak masuk menu kita? Jawab 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Éclair; Bahan Utama: Tepung; Bahan: Tepung, telur, mentega, susu, cokelat leleh, krim vanila; Langkah: Buat adonan choux, panggang, isi dengan krim, dan celup cokelat.",
+    "output": "Yes. Éclair adalah dessert mewah yang disukai banyak orang. Gunakan cokelat premium dan variasi rasa isi seperti kopi atau stroberi untuk menarik lebih banyak pelanggan."
+  },
+  {
+    "instruction": "Ini ada menu dari Timur Tengah. Apakah cocok untuk menu restoran kita? Jawab 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Hummus; Bahan Utama: Chickpea; Bahan: Chickpea, tahini, bawang putih, air lemon, minyak zaitun, garam; Langkah: Haluskan semua bahan hingga menjadi pasta, sajikan dengan roti pita.",
+    "output": "Yes. Hummus adalah hidangan sehat dan populer di banyak negara. Pastikan tekstur halus dan tambahkan topping seperti paprika bubuk, peterseli, atau zaitun untuk tampilan lebih menarik."
+  },
+  {
+    "instruction": "Cek menu ini, katanya sederhana tapi enak. Bagaimana menurutmu? 'Yes' atau 'No,' tambahkan masukan.",
+    "input": "Resep: Omelet Keju; Bahan Utama: Telur; Bahan: Telur, keju, bawang bombay, garam, merica; Langkah: Kocok telur dengan garam, masak di wajan, tambahkan keju di tengah, lipat.",
+    "output": "No. Omelet keju terlalu sederhana. Tambahkan bahan seperti jamur, paprika, atau daging asap untuk rasa lebih kaya dan tampilan lebih menarik."
+  },
+  {
+    "instruction": "Cek menu minuman ini. Layak nggak untuk restoran kita? Jawab 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Milkshake Cokelat; Bahan Utama: Susu; Bahan: Susu, es krim cokelat, cokelat bubuk, whipped cream; Langkah: Blender susu, es krim, dan cokelat bubuk, sajikan dengan whipped cream.",
+    "output": "Yes. Milkshake cokelat selalu populer. Gunakan cokelat premium dan tambahkan topping unik seperti biskuit atau marshmallow untuk daya tarik lebih."
+  },
+  {
+    "instruction": "Resep ini katanya street food populer. Apakah cukup menarik untuk restoran kita? 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Hot Dog; Bahan Utama: Sosis; Bahan: Sosis, roti hot dog, saus tomat, mustard; Langkah: Panggang sosis, masukkan ke roti, tambahkan saus.",
+    "output": "No. Hot dog terlalu standar. Tambahkan topping kreatif seperti keju leleh, bawang karamel, atau jalapeño untuk membedakan dari versi pasar."
+  },
+  {
+    "instruction": "Menu pasta ini katanya cukup populer. Layak nggak untuk restoran kita? 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Mac and Cheese; Bahan Utama: Pasta; Bahan: Pasta, keju cheddar, susu, tepung, mentega, garam; Langkah: Masak pasta, buat saus keju dari mentega, tepung, dan susu, campur dengan pasta.",
+    "output": "Yes. Mac and cheese adalah comfort food yang digemari. Gunakan campuran keju premium seperti parmesan atau gouda untuk rasa lebih kaya, dan tambahkan topping seperti remah roti panggang untuk tekstur."
+  },
+  {
+    "instruction": "Cek menu makanan ringan ini. Layak nggak untuk restoran kita? Jawab 'Yes' atau 'No' dan beri alasannya.",
+    "input": "Resep: Chicken Wings Saus Barbeku; Bahan Utama: Sayap Ayam; Bahan: Sayap ayam, saus barbeku, garam, lada, minyak goreng; Langkah: Marinasi sayap ayam dengan garam dan lada, goreng, campur dengan saus barbeku.",
+    "output": "Yes. Chicken wings selalu populer. Gunakan saus barbeku buatan sendiri untuk rasa lebih autentik. Tambahkan topping seperti wijen atau daun bawang untuk tampilan lebih menarik."
+  },
+  {
+    "instruction": "Resep ini cukup klasik. Bagaimana menurutmu, layak nggak masuk menu kita? 'Yes' atau 'No' dan beri saran.",
+    "input": "Resep: Ayam Goreng Tepung; Bahan Utama: Daging Ayam; Bahan: Ayam fillet, tepung bumbu, telur, garam, lada, minyak goreng; Langkah: Lumuri ayam dengan tepung dan telur, goreng hingga matang.",
+    "output": "No. Ayam goreng tepung terlalu umum. Buatlah variasi seperti ayam goreng Korea dengan saus pedas manis, atau tambahkan bumbu khas untuk cita rasa yang berbeda."
+  },
+  {
+    "instruction": "Cek menu dessert ini. Kira-kira menarik nggak untuk pelanggan kita? 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Strawberry Cheesecake; Bahan Utama: Krim Keju; Bahan: Krim keju, gula, telur, biskuit, mentega, stroberi segar; Langkah: Campur bahan cheesecake, tuang di atas biskuit yang dihancurkan, panggang, hias dengan stroberi segar.",
+    "output": "Yes. Strawberry cheesecake adalah dessert klasik yang selalu disukai. Pastikan stroberi segar dan tambahkan saus stroberi untuk memperkaya rasa."
+  },
+  {
+    "instruction": "Resep ini katanya street food klasik. Layak nggak untuk restoran kita? 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Bakso Kuah; Bahan Utama: Daging Sapi; Bahan: Daging sapi, tepung kanji, bawang putih, lada, garam, kaldu sapi, bihun; Langkah: Buat bakso dari campuran daging dan tepung, rebus dalam kaldu sapi, sajikan dengan bihun.",
+    "output": "No. Bakso kuah terlalu standar. Untuk menarik pelanggan, tambahkan variasi seperti bakso keju atau kuah tom yam agar lebih unik."
+  },
+  {
+    "instruction": "Ini ada resep dari Timur Tengah. Apakah cocok untuk menu restoran kita? Jawab 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Shawarma Ayam; Bahan Utama: Daging Ayam; Bahan: Daging ayam, roti pita, bawang putih, yoghurt, rempah shawarma, sayuran segar; Langkah: Marinasi ayam dengan rempah, panggang, bungkus dalam roti pita dengan sayuran dan saus yoghurt.",
+    "output": "Yes. Shawarma ayam adalah hidangan populer yang sehat dan lezat. Pastikan rempah-rempah segar dan tambahkan variasi saus seperti tahini atau sambal untuk daya tarik lebih."
+  },
+  {
+    "instruction": "Menu pasta ini cukup populer. Layak nggak untuk restoran kita? 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Aglio e Olio; Bahan Utama: Pasta Spaghetti; Bahan: Spaghetti, bawang putih, cabai, minyak zaitun, parsley, garam; Langkah: Tumis bawang putih dan cabai dalam minyak zaitun, masukkan spaghetti, taburi parsley.",
+    "output": "Yes. Aglio e Olio simpel tapi elegan. Gunakan minyak zaitun berkualitas tinggi dan tambahkan topping seperti udang atau jamur untuk variasi premium."
+  },
+  {
+    "instruction": "Cek menu dessert tradisional ini. Apakah cocok untuk restoran kita? 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Kue Lumpur; Bahan Utama: Kentang; Bahan: Kentang, tepung terigu, santan, gula, telur, vanili; Langkah: Campur semua bahan, tuang ke cetakan, panggang hingga matang.",
+    "output": "Yes. Kue lumpur adalah dessert tradisional yang lembut dan manis. Tambahkan topping seperti kelapa parut atau kismis untuk variasi menarik."
+  },
+  {
+    "instruction": "Resep ini sederhana banget. Menurutmu layak nggak untuk restoran kita? 'Yes' atau 'No' plus masukan.",
+    "input": "Resep: Roti Isi Selai; Bahan Utama: Roti Tawar; Bahan: Roti tawar, selai cokelat; Langkah: Oleskan selai ke roti, lipat dan sajikan.",
+    "output": "No. Roti isi selai terlalu sederhana dan kurang menarik untuk restoran. Buatlah variasi seperti roti isi dengan homemade spread atau tambahkan bahan segar seperti buah."
+  },
+  {
+    "instruction": "Cek menu camilan ini. Layak nggak untuk restoran kita? 'Yes' atau 'No' plus alasan.",
+    "input": "Resep: Risol Mayo; Bahan Utama: Tepung Terigu; Bahan: Kulit lumpia, mayones, daging asap, keju, telur rebus; Langkah: Isi kulit lumpia dengan bahan, gulung, goreng hingga matang.",
+    "output": "Yes. Risol mayo sangat disukai banyak orang. Tambahkan variasi seperti saus pedas atau topping keju leleh untuk daya tarik lebih."
+  },
+  {
+    "instruction": "Ini ada menu sederhana dari Meksiko. Bagaimana menurutmu, layak nggak masuk menu kita? 'Yes' atau 'No' dan beri saran.",
+    "input": "Resep: Nachos; Bahan Utama: Keripik Jagung; Bahan: Keripik jagung, keju cair, saus salsa, cabai jalapeño; Langkah: Tata keripik jagung, tuang keju cair, tambahkan saus salsa dan jalapeño.",
+    "output": "Yes. Nachos adalah camilan populer. Tambahkan topping premium seperti daging cincang berbumbu atau guacamole untuk pengalaman makan yang lebih kaya."
+  },
+  {
+    "instruction": "Cek menu tradisional Indonesia ini. Layak nggak untuk restoran kita? 'Yes' atau 'No' plus alasannya.",
+    "input": "Resep: Lontong Sayur; Bahan Utama: Lontong; Bahan: Lontong, santan, labu siam, tempe, cabai, bawang merah, bawang putih, garam; Langkah: Masak labu siam dan tempe dengan santan dan bumbu, sajikan dengan lontong.",
+    "output": "No. Lontong sayur terlalu umum. Tambahkan inovasi seperti topping ayam panggang bumbu rempah atau sambal goreng hati agar lebih menarik."
+  },
+  {
+    "instruction": "Resep ini khas Asia. Layak nggak untuk restoran kita? Jawab 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Pad Thai; Bahan Utama: Mie Beras; Bahan: Mie beras, udang, telur, tauge, saus tamarind, kacang tanah sangrai; Langkah: Tumis mie dengan telur, udang, dan saus tamarind, sajikan dengan tauge dan kacang tanah.",
+    "output": "Yes. Pad Thai memiliki rasa khas yang banyak disukai. Gunakan saus tamarind buatan sendiri untuk rasa autentik dan tambahkan irisan jeruk nipis untuk kesegaran."
+  },
+  {
+    "instruction": "Cek menu seafood ini. Layak nggak untuk restoran kita? 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Udang Goreng Tepung; Bahan Utama: Udang; Bahan: Udang, tepung bumbu, minyak goreng, saus cabai; Langkah: Lumuri udang dengan tepung, goreng hingga matang, sajikan dengan saus cabai.",
+    "output": "No. Udang goreng tepung terlalu standar. Buat variasi seperti udang goreng saus mentega atau tambahkan bumbu khas seperti bawang putih goreng untuk daya tarik lebih."
+  },
+  {
+    "instruction": "Ini ada menu dessert klasik dari Barat. Layak nggak untuk restoran kita? 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Brownies Cokelat; Bahan Utama: Cokelat; Bahan: Cokelat, tepung terigu, gula, mentega, telur, bubuk kakao; Langkah: Campur semua bahan, panggang hingga matang, sajikan.",
+    "output": "Yes. Brownies cokelat selalu jadi favorit pelanggan. Tambahkan topping seperti kacang almond atau saus karamel untuk variasi rasa yang lebih kaya."
+  },
+  {
+    "instruction": "Cek menu salad ini. Apakah cocok untuk restoran kita? 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Caesar Salad; Bahan Utama: Selada Romaine; Bahan: Selada romaine, keju parmesan, crouton, saus caesar; Langkah: Susun selada, taburi parmesan dan crouton, tuang saus caesar.",
+    "output": "Yes. Caesar salad adalah pilihan sehat yang disukai banyak orang. Gunakan saus caesar buatan sendiri dan tambahkan topping seperti ayam panggang untuk nilai tambah."
+  },
+  {
+    "instruction": "Resep ini simpel banget. Apakah layak untuk menu kita? 'Yes' atau 'No' dan beri saran.",
+    "input": "Resep: Popcorn Gurih; Bahan Utama: Jagung; Bahan: Jagung popcorn, mentega, garam; Langkah: Masak jagung dengan mentega hingga meletup, tambahkan garam.",
+    "output": "No. Popcorn terlalu sederhana untuk restoran. Tambahkan rasa unik seperti karamel asin, truffle, atau keju bubuk agar lebih menarik."
+  },
+  {
+    "instruction": "Resep ini khas Minang. Apakah layak untuk restoran kita? Jawab 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Dendeng Balado; Bahan Utama: Daging Sapi; Bahan: Daging sapi, cabai merah, bawang merah, bawang putih, garam, gula; Langkah: Iris tipis daging sapi, goreng hingga kering, tumis cabai dan bawang, campur dengan daging.",
+    "output": "Yes. Dendeng balado memiliki rasa pedas gurih yang khas. Gunakan cabai segar dan pastikan daging kering tapi tetap renyah. Tambahkan sedikit perasan jeruk nipis untuk rasa segar."
+  },
+  {
+    "instruction": "Ini ada resep khas Betawi. Apakah cocok untuk restoran kita? 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Soto Betawi; Bahan Utama: Daging Sapi; Bahan: Daging sapi, santan, susu, bawang merah, bawang putih, jahe, daun salam, garam, merica; Langkah: Rebus daging, tumis bumbu, tambahkan santan dan susu, masak hingga matang.",
+    "output": "Yes. Soto Betawi adalah menu yang banyak dicari. Gunakan santan segar untuk rasa autentik, dan sajikan dengan emping serta acar untuk pelengkap."
+  },
+  {
+    "instruction": "Resep ini khas Sunda. Layak nggak masuk menu kita? 'Yes' atau 'No' dan beri saran.",
+    "input": "Resep: Karedok; Bahan Utama: Aneka Sayuran; Bahan: Kacang panjang, tauge, kol, mentimun, bumbu kacang (kacang tanah, gula merah, cabai, kencur); Langkah: Campur sayuran dengan bumbu kacang.",
+    "output": "Yes. Karedok adalah menu sehat dan segar. Pastikan bumbu kacang ulek segar dan tambahkan kerupuk untuk tekstur tambahan."
+  },
+  {
+    "instruction": "Cek menu tradisional Jawa ini. Apakah layak untuk restoran kita? 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Pecel; Bahan Utama: Sayuran Rebus; Bahan: Kangkung, kacang panjang, tauge, sambal pecel (kacang tanah, cabai, bawang putih, gula merah); Langkah: Rebus sayuran, campur dengan sambal pecel.",
+    "output": "Yes. Pecel selalu diminati sebagai menu sehat. Sajikan dengan nasi hangat dan tambahan rempeyek kacang untuk pelengkap."
+  },
+  {
+    "instruction": "Resep ini khas Makassar. Apakah cukup menarik untuk pelanggan kita? 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Coto Makassar; Bahan Utama: Daging Sapi; Bahan: Daging sapi, kacang tanah, bawang merah, bawang putih, jahe, ketumbar, daun salam, garam; Langkah: Rebus daging dengan bumbu hingga empuk, tambahkan kacang tanah yang dihaluskan.",
+    "output": "Yes. Coto Makassar adalah hidangan khas yang kaya rasa. Gunakan daging segar dan tambahkan sambal tauco untuk melengkapi."
+  },
+  {
+    "instruction": "Resep ini khas Bali. Apakah cocok untuk menu restoran kita? 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Ayam Betutu; Bahan Utama: Ayam Utuh; Bahan: Ayam utuh, bawang putih, bawang merah, kunyit, cabai, daun jeruk, serai, santan; Langkah: Lumuri ayam dengan bumbu, bungkus dengan daun pisang, panggang hingga matang.",
+    "output": "Yes. Ayam Betutu adalah menu khas yang kaya rempah. Gunakan santan segar dan tambahkan sambal matah sebagai pelengkap."
+  },
+  {
+    "instruction": "Cek menu ringan khas Jawa ini. Layak nggak untuk restoran kita? 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Tahu Tek; Bahan Utama: Tahu Goreng; Bahan: Tahu goreng, lontong, tauge, kerupuk, bumbu kacang petis; Langkah: Susun bahan di piring, siram dengan bumbu kacang petis.",
+    "output": "Yes. Tahu Tek adalah menu unik dan lezat. Pastikan petis berkualitas baik dan tambahkan kerupuk renyah sebagai pelengkap."
+  },
+  {
+    "instruction": "Resep ini khas Jawa Timur. Bagaimana menurutmu, cocok nggak untuk menu kita? 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Rawon; Bahan Utama: Daging Sapi; Bahan: Daging sapi, kluwek, bawang putih, bawang merah, jahe, lengkuas, daun salam, garam; Langkah: Rebus daging dengan bumbu hingga empuk, tambahkan kluwek.",
+    "output": "Yes. Rawon memiliki cita rasa khas yang digemari. Pastikan kluwek segar dan sajikan dengan tauge pendek serta sambal terasi."
+  },
+  {
+    "instruction": "Cek resep khas Manado ini. Apakah cocok untuk restoran kita? 'Yes' atau 'No' plus saran.",
+    "input": "Resep: Ikan Woku; Bahan Utama: Ikan Kakap; Bahan: Ikan kakap, bawang merah, bawang putih, daun kemangi, serai, cabai, tomat, garam; Langkah: Tumis bumbu, masukkan ikan, tambahkan daun kemangi dan tomat, masak hingga matang.",
+    "output": "Yes. Ikan Woku menawarkan rasa segar dan pedas khas. Gunakan ikan segar dan tambahkan perasan jeruk nipis sebelum disajikan."
+  },
+  {
+    "instruction": "Resep ini dari Maluku. Menurutmu layak nggak masuk menu kita? 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Papeda Kuah Kuning; Bahan Utama: Sagu; Bahan: Sagu, ikan tongkol, kunyit, bawang merah, bawang putih, daun jeruk, serai, garam; Langkah: Masak sagu hingga kenyal, buat kuah kuning dari bumbu dan ikan, sajikan bersama.",
+    "output": "Yes. Papeda adalah menu khas dengan cita rasa unik. Pastikan tekstur sagu pas dan kuah kuning kaya rempah untuk menarik pelanggan."
+  },
+  {
+    "instruction": "Cek resep jajanan tradisional ini. Layak nggak untuk restoran kita? 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Klepon; Bahan Utama: Tepung Ketan; Bahan: Tepung ketan, gula merah, kelapa parut, air pandan; Langkah: Campur tepung ketan dengan air pandan, isi dengan gula merah, rebus, gulingkan di kelapa parut.",
+    "output": "Yes. Klepon adalah jajanan yang banyak diminati. Pastikan gula merah lumer dan gunakan kelapa parut segar untuk hasil terbaik."
+  },
+  {
+    "instruction": "Resep jajanan pasar ini cukup umum. Bagaimana menurutmu? 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Nagasari; Bahan Utama: Tepung Beras; Bahan: Tepung beras, santan, gula pasir, pisang, daun pandan; Langkah: Campur tepung beras, santan, dan gula, bungkus adonan dengan pisang di dalamnya, kukus hingga matang.",
+    "output": "Yes. Nagasari adalah jajanan tradisional yang cocok untuk segala usia. Gunakan pisang matang agar manis alami lebih terasa."
+  },
+  {
+    "instruction": "Cek jajanan modern ini. Apakah layak untuk menu kita? 'Yes' atau 'No' plus komentar.",
+    "input": "Resep: Donat Kentang; Bahan Utama: Kentang; Bahan: Kentang kukus, tepung terigu, ragi, susu, gula, mentega; Langkah: Campur bahan, bentuk donat, goreng hingga matang, beri topping sesuai selera.",
+    "output": "Yes. Donat kentang populer di kalangan anak muda. Pastikan tekstur lembut dan tambahkan topping unik seperti matcha atau cokelat premium."
+  },
+  {
+    "instruction": "Resep ini cukup sederhana. Layak nggak untuk restoran kita? 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Pisang Molen; Bahan Utama: Pisang; Bahan: Pisang, tepung terigu, gula, mentega; Langkah: Bungkus pisang dengan adonan tepung, goreng hingga kecokelatan.",
+    "output": "Yes. Pisang molen disukai banyak orang. Gunakan pisang yang manis alami seperti pisang raja dan tambahkan varian isi seperti cokelat atau keju."
+  },
+  {
+    "instruction": "Cek jajanan khas ini. Apakah cukup menarik untuk restoran kita? 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Onde-Onde; Bahan Utama: Tepung Ketan; Bahan: Tepung ketan, kacang hijau, gula, wijen, minyak goreng; Langkah: Isi adonan tepung dengan kacang hijau manis, gulingkan di wijen, goreng hingga matang.",
+    "output": "Yes. Onde-onde adalah jajanan klasik yang banyak digemari. Tambahkan variasi seperti isi cokelat atau keju untuk daya tarik modern."
+  },
+  {
+    "instruction": "Resep ini cukup mainstream. Apakah layak untuk restoran kita? Jawab 'Yes' atau 'No' plus masukan.",
+    "input": "Resep: Martabak Manis Mini; Bahan Utama: Tepung Terigu; Bahan: Tepung terigu, telur, gula, susu, topping (cokelat, keju, kacang); Langkah: Buat adonan, masak di cetakan mini, tambahkan topping.",
+    "output": "Yes. Martabak manis mini menarik untuk snack ringan. Pastikan variasi topping beragam seperti Nutella, Oreo, atau green tea."
+  },
+  {
+    "instruction": "Cek jajanan ringan ini. Apakah cocok untuk restoran kita? 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Kue Cubit; Bahan Utama: Tepung Terigu; Bahan: Tepung terigu, susu, telur, baking powder, gula; Langkah: Campur bahan, masak di cetakan kecil, tambahkan topping sesuai selera.",
+    "output": "Yes. Kue cubit populer di kalangan anak muda. Gunakan topping modern seperti KitKat, Toblerone, atau matcha untuk menarik perhatian."
+  },
+  {
+    "instruction": "Cek menu tradisional ini. Layak nggak untuk restoran kita? Jawab 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Serabi; Bahan Utama: Tepung Beras; Bahan: Tepung beras, santan, gula, daun pandan; Langkah: Campur bahan, masak di wajan kecil hingga matang, sajikan dengan kinca.",
+    "output": "Yes. Serabi adalah jajanan tradisional yang menarik. Tambahkan variasi rasa seperti cokelat atau durian untuk inovasi."
+  },
+  {
+    "instruction": "Resep ini cukup sederhana. Bagaimana menurutmu? 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Getuk; Bahan Utama: Singkong; Bahan: Singkong rebus, gula merah, kelapa parut; Langkah: Haluskan singkong, campur dengan gula merah, bentuk, gulingkan di kelapa parut.",
+    "output": "Yes. Getuk adalah jajanan yang sederhana tapi memikat. Pastikan tekstur lembut dan gunakan gula merah berkualitas untuk rasa yang maksimal."
+  },
+  {
+    "instruction": "Resep ini katanya khas Jawa. Apakah cukup menarik untuk pelanggan kita? 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Wingko Babat; Bahan Utama: Kelapa Parut; Bahan: Kelapa parut, tepung ketan, gula, telur; Langkah: Campur bahan, panggang hingga matang.",
+    "output": "Yes. Wingko Babat cocok untuk camilan tradisional. Tambahkan variasi rasa seperti durian atau cokelat untuk menarik pelanggan muda."
+  },
+  {
+    "instruction": "Cek jajanan tradisional ini. Layak nggak untuk restoran kita? 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Lepet Ketan; Bahan Utama: Beras Ketan; Bahan: Beras ketan, kelapa parut, kacang tanah, garam, daun pisang; Langkah: Campur beras ketan dengan kelapa dan kacang tanah, bungkus dengan daun pisang, kukus hingga matang.",
+    "output": "Yes. Lepet ketan adalah jajanan tradisional yang lezat. Pastikan tekstur ketan pas dan tambahkan sedikit garam untuk memperkaya rasa."
+  },
+  {
+    "instruction": "Resep ini khas Manado. Layak nggak untuk restoran kita? Jawab 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Panada; Bahan Utama: Tepung Terigu; Bahan: Tepung terigu, ikan tongkol, bawang merah, daun bawang, santan; Langkah: Buat adonan roti, isi dengan tumisan ikan, goreng hingga matang.",
+    "output": "Yes. Panada memiliki rasa khas Manado yang unik. Tambahkan sedikit cabai dalam isian untuk memberikan rasa pedas yang lezat."
+  },
+  {
+    "instruction": "Cek resep jajanan khas Sunda ini. Apakah layak untuk menu kita? 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Misro; Bahan Utama: Singkong; Bahan: Singkong parut, gula merah, garam; Langkah: Bentuk adonan singkong dengan gula merah di dalamnya, goreng hingga matang.",
+    "output": "Yes. Misro adalah jajanan tradisional yang manis dan gurih. Gunakan gula merah yang lumer untuk isian agar lebih menarik."
+  },
+  {
+    "instruction": "Resep ini khas Palembang. Apakah cocok untuk restoran kita? Jawab 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Pempek; Bahan Utama: Ikan Tenggiri; Bahan: Ikan tenggiri, tepung sagu, bawang putih, garam, cuka, gula merah, cabai; Langkah: Campur ikan dan tepung, bentuk, rebus, goreng, sajikan dengan kuah cuko.",
+    "output": "Yes. Pempek adalah jajanan yang selalu diminati. Pastikan kuah cuko memiliki keseimbangan asam, manis, dan pedas yang tepat."
+  },
+  {
+    "instruction": "Cek jajanan khas Minang ini. Apakah cukup menarik untuk pelanggan kita? 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Galamai; Bahan Utama: Tepung Beras Ketan; Bahan: Tepung beras ketan, gula aren, santan; Langkah: Masak semua bahan hingga mengental dan matang.",
+    "output": "Yes. Galamai adalah jajanan khas Minang yang unik. Sajikan dalam potongan kecil untuk kemudahan pelanggan."
+  },
+  {
+    "instruction": "Resep ini cukup sederhana. Layak nggak untuk restoran kita? 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Combro; Bahan Utama: Singkong; Bahan: Singkong parut, oncom, cabai, daun bawang; Langkah: Isi adonan singkong dengan oncom berbumbu, goreng hingga matang.",
+    "output": "Yes. Combro adalah camilan gurih yang populer. Gunakan oncom berbumbu pedas untuk daya tarik lebih."
+  },
+  {
+    "instruction": "Cek menu ringan khas Jawa ini. Layak nggak untuk restoran kita? 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Gethuk Lindri; Bahan Utama: Singkong; Bahan: Singkong, gula pasir, kelapa parut, pewarna makanan; Langkah: Haluskan singkong, campur gula, bentuk dengan cetakan, tambahkan pewarna, sajikan dengan kelapa parut.",
+    "output": "Yes. Gethuk lindri adalah jajanan tradisional yang menarik. Gunakan warna alami dari pandan atau ubi ungu untuk tampil lebih menarik."
+  },
+  {
+    "instruction": "Resep ini khas Banjar. Apakah cukup menarik untuk pelanggan kita? Jawab 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Apam Barabai; Bahan Utama: Tepung Beras; Bahan: Tepung beras, santan, gula merah, ragi; Langkah: Campur bahan, fermentasi hingga mengembang, kukus hingga matang.",
+    "output": "Yes. Apam Barabai adalah jajanan khas yang unik. Sajikan dengan kuah santan atau gula merah cair untuk pelengkap."
+  },
+  {
+    "instruction": "Cek resep jajanan ini. Layak nggak untuk restoran kita? Jawab 'Yes' atau 'No' plus masukan.",
+    "input": "Resep: Kue Lumpur Pandan; Bahan Utama: Kentang; Bahan: Kentang kukus, tepung terigu, santan, telur, gula, pandan; Langkah: Campur bahan, masak di cetakan, tambahkan topping kismis.",
+    "output": "Yes. Kue lumpur pandan menarik untuk camilan manis. Pastikan tekstur lembut dan aroma pandan kuat untuk menarik pelanggan."
+  },
+  {
+    "instruction": "Resep ini khas Sulawesi. Apakah cocok untuk menu kita? 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Barongko; Bahan Utama: Pisang; Bahan: Pisang, santan, gula, telur, daun pisang; Langkah: Haluskan pisang, campur dengan bahan lain, bungkus dengan daun pisang, kukus hingga matang.",
+    "output": "Yes. Barongko adalah jajanan tradisional yang manis dan lembut. Sajikan dingin untuk pengalaman yang lebih menyegarkan."
+  },
+  {
+    "instruction": "Cek jajanan tradisional ini. Layak nggak untuk restoran kita? 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Lepet Ketan; Bahan Utama: Beras Ketan; Bahan: Beras ketan, kelapa parut, kacang tanah, garam, daun pisang; Langkah: Campur beras ketan dengan kelapa dan kacang tanah, bungkus dengan daun pisang, kukus hingga matang.",
+    "output": "Yes. Lepet ketan adalah jajanan tradisional yang lezat. Pastikan tekstur ketan pas dan tambahkan sedikit garam untuk memperkaya rasa."
+  },
+  {
+    "instruction": "Resep ini khas Manado. Layak nggak untuk restoran kita? Jawab 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Panada; Bahan Utama: Tepung Terigu; Bahan: Tepung terigu, ikan tongkol, bawang merah, daun bawang, santan; Langkah: Buat adonan roti, isi dengan tumisan ikan, goreng hingga matang.",
+    "output": "Yes. Panada memiliki rasa khas Manado yang unik. Tambahkan sedikit cabai dalam isian untuk memberikan rasa pedas yang lezat."
+  },
+  {
+    "instruction": "Cek resep jajanan khas Sunda ini. Apakah layak untuk menu kita? 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Misro; Bahan Utama: Singkong; Bahan: Singkong parut, gula merah, garam; Langkah: Bentuk adonan singkong dengan gula merah di dalamnya, goreng hingga matang.",
+    "output": "Yes. Misro adalah jajanan tradisional yang manis dan gurih. Gunakan gula merah yang lumer untuk isian agar lebih menarik."
+  },
+  {
+    "instruction": "Resep ini khas Palembang. Apakah cocok untuk restoran kita? Jawab 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Pempek; Bahan Utama: Ikan Tenggiri; Bahan: Ikan tenggiri, tepung sagu, bawang putih, garam, cuka, gula merah, cabai; Langkah: Campur ikan dan tepung, bentuk, rebus, goreng, sajikan dengan kuah cuko.",
+    "output": "Yes. Pempek adalah jajanan yang selalu diminati. Pastikan kuah cuko memiliki keseimbangan asam, manis, dan pedas yang tepat."
+  },
+  {
+    "instruction": "Cek jajanan khas Minang ini. Apakah cukup menarik untuk pelanggan kita? 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Galamai; Bahan Utama: Tepung Beras Ketan; Bahan: Tepung beras ketan, gula aren, santan; Langkah: Masak semua bahan hingga mengental dan matang.",
+    "output": "Yes. Galamai adalah jajanan khas Minang yang unik. Sajikan dalam potongan kecil untuk kemudahan pelanggan."
+  },
+  {
+    "instruction": "Resep ini cukup sederhana. Layak nggak untuk restoran kita? 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Combro; Bahan Utama: Singkong; Bahan: Singkong parut, oncom, cabai, daun bawang; Langkah: Isi adonan singkong dengan oncom berbumbu, goreng hingga matang.",
+    "output": "Yes. Combro adalah camilan gurih yang populer. Gunakan oncom berbumbu pedas untuk daya tarik lebih."
+  },
+  {
+    "instruction": "Cek menu ringan khas Jawa ini. Layak nggak untuk restoran kita? 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Gethuk Lindri; Bahan Utama: Singkong; Bahan: Singkong, gula pasir, kelapa parut, pewarna makanan; Langkah: Haluskan singkong, campur gula, bentuk dengan cetakan, tambahkan pewarna, sajikan dengan kelapa parut.",
+    "output": "Yes. Gethuk lindri adalah jajanan tradisional yang menarik. Gunakan warna alami dari pandan atau ubi ungu untuk tampil lebih menarik."
+  },
+  {
+    "instruction": "Resep ini khas Banjar. Apakah cukup menarik untuk pelanggan kita? Jawab 'Yes' atau 'No' dan beri komentar.",
+    "input": "Resep: Apam Barabai; Bahan Utama: Tepung Beras; Bahan: Tepung beras, santan, gula merah, ragi; Langkah: Campur bahan, fermentasi hingga mengembang, kukus hingga matang.",
+    "output": "Yes. Apam Barabai adalah jajanan khas yang unik. Sajikan dengan kuah santan atau gula merah cair untuk pelengkap."
+  },
+  {
+    "instruction": "Cek resep jajanan ini. Layak nggak untuk restoran kita? Jawab 'Yes' atau 'No' plus masukan.",
+    "input": "Resep: Kue Lumpur Pandan; Bahan Utama: Kentang; Bahan: Kentang kukus, tepung terigu, santan, telur, gula, pandan; Langkah: Campur bahan, masak di cetakan, tambahkan topping kismis.",
+    "output": "Yes. Kue lumpur pandan menarik untuk camilan manis. Pastikan tekstur lembut dan aroma pandan kuat untuk menarik pelanggan."
+  },
+  {
+    "instruction": "Resep ini khas Sulawesi. Apakah cocok untuk menu kita? 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Barongko; Bahan Utama: Pisang; Bahan: Pisang, santan, gula, telur, daun pisang; Langkah: Haluskan pisang, campur dengan bahan lain, bungkus dengan daun pisang, kukus hingga matang.",
+    "output": "Yes. Barongko adalah jajanan tradisional yang manis dan lembut. Sajikan dingin untuk pengalaman yang lebih menyegarkan."
+  },
+  {
+    "instruction": "Cek menu tradisional khas Jawa ini. Layak nggak untuk restoran kita? 'Yes' atau 'No' dan beri alasannya.",
+    "input": "Resep: Tiwul; Bahan Utama: Tepung Gaplek; Bahan: Tepung gaplek, kelapa parut, gula merah; Langkah: Kukus tepung gaplek hingga matang, sajikan dengan kelapa parut dan gula merah.",
+    "output": "No. Tiwul terlalu sederhana dan lebih cocok sebagai makanan nostalgia. Untuk menarik pelanggan, tambahkan variasi rasa seperti pandan atau cokelat."
+  },
+  {
+    "instruction": "Cek menu ringan khas Indonesia Timur ini. Apakah cocok untuk restoran kita? 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Ubi Nuabosi Goreng; Bahan Utama: Ubi Nuabosi; Bahan: Ubi nuabosi, garam, minyak goreng; Langkah: Potong ubi, goreng hingga matang, taburi garam.",
+    "output": "Yes. Ubi Nuabosi adalah camilan unik dari Indonesia Timur. Gunakan bumbu tambahan seperti bubuk cabai atau keju untuk memberikan sentuhan modern."
+  },
+  {
+    "instruction": "Cek resep ini. Apakah layak untuk restoran kita? Jawab 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Ayam Goreng Kalasan; Bahan Utama: Ayam Kampung; Bahan: Ayam kampung, santan, bawang putih, ketumbar, gula merah, garam; Langkah: Rebus ayam dengan bumbu hingga meresap, goreng hingga kecokelatan.",
+    "output": "Yes. Ayam Goreng Kalasan memiliki rasa khas yang disukai. Pastikan ayam kampung empuk dan tambahkan sambal terasi sebagai pendamping."
+  },
+  {
+    "instruction": "Cek menu masakan khas Bali ini. Layak nggak untuk restoran kita? 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Lawar; Bahan Utama: Daging Cincang; Bahan: Daging cincang, kelapa parut, bawang merah, bawang putih, cabai, daun jeruk, garam; Langkah: Campur semua bahan, aduk rata, sajikan segar.",
+    "output": "No. Lawar memiliki cita rasa yang spesifik dan mungkin kurang diminati di luar Bali. Untuk menarik lebih banyak pelanggan, tambahkan daging panggang sebagai pelengkap."
+  },
+  {
+    "instruction": "Cek menu seafood khas Sulawesi ini. Layak nggak untuk restoran kita? 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Ikan Pallumara; Bahan Utama: Ikan Kakap; Bahan: Ikan kakap, kunyit, bawang merah, bawang putih, daun jeruk, cabai, asam jawa; Langkah: Rebus ikan dengan bumbu hingga matang.",
+    "output": "Yes. Ikan Pallumara memiliki rasa segar dan cocok sebagai menu utama. Pastikan ikan segar dan tambahkan perasan jeruk nipis sebelum disajikan."
+  },
+  {
+    "instruction": "Cek resep khas Sumatera Barat ini. Apakah cukup menarik untuk pelanggan kita? 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Gulai Tunjang; Bahan Utama: Kikil Sapi; Bahan: Kikil sapi, santan, kunyit, bawang merah, bawang putih, cabai, daun salam; Langkah: Masak kikil dengan bumbu hingga empuk.",
+    "output": "Yes. Gulai Tunjang adalah hidangan khas yang kaya rasa. Pastikan kikil empuk dan tambahkan sambal lado hijau untuk pelengkap."
+  },
+  {
+    "instruction": "Cek menu ringan khas Sunda ini. Apakah cocok untuk restoran kita? 'Yes' atau 'No' dan beri alasan.",
+    "input": "Resep: Batagor; Bahan Utama: Tahu dan Ikan Tenggiri; Bahan: Tahu, ikan tenggiri, tepung tapioka, bumbu kacang, kecap manis; Langkah: Campur tahu dan ikan, goreng, sajikan dengan bumbu kacang.",
+    "output": "Yes. Batagor selalu diminati sebagai camilan gurih. Pastikan bumbu kacang kental dan tambahkan sedikit perasan jeruk limau untuk rasa segar."
+  },
+  {
+    "instruction": "Resep ini cukup sederhana. Layak nggak untuk restoran kita? 'Yes' atau 'No' dan beri masukan.",
+    "input": "Resep: Sayur Lodeh; Bahan Utama: Labu Siam; Bahan: Labu siam, santan, tahu, tempe, cabai, bawang merah, bawang putih; Langkah: Masak labu dan tahu dengan santan dan bumbu hingga matang.",
+    "output": "No. Sayur Lodeh terlalu umum dan cocok untuk rumah makan sederhana. Tambahkan protein seperti udang atau ayam untuk meningkatkan daya tarik."
+  },
+  {
+    "instruction": "Cek menu khas Makassar ini. Apakah cocok untuk restoran kita? 'Yes' atau 'No' beserta alasannya.",
+    "input": "Resep: Sop Konro; Bahan Utama: Iga Sapi; Bahan: Iga sapi, kayu manis, cengkih, pala, bawang merah, bawang putih, garam; Langkah: Rebus iga dengan bumbu hingga empuk.",
+    "output": "Yes. Sop Konro memiliki rasa khas dan cocok sebagai menu utama. Pastikan iga empuk dan tambahkan sambal untuk pelengkap."
+  }
+]
