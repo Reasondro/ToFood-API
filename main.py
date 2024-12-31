@@ -7,28 +7,7 @@ CONTEXT_SIZE = 10000
 
 
 # LOAD THE MODEL
-tofood_model = Llama(model_path=my_model_path, n_gpu_layer = -1, n_ctx=CONTEXT_SIZE)
-
-# def generate_text_from_prompt(user_prompt,
-#                              max_tokens = 300,
-#                              temperature = 0.3,
-#                              top_p = 0.1,
-#                              echo = True,
-#                              stop = ["Q", "\n"]):
-#    # Define the parameters
-#    model_output = tofood_model(
-#        user_prompt,
-#        max_tokens=max_tokens,
-#        temperature=temperature,
-#        top_p=top_p,
-#        echo=echo,
-#        stop=stop,
-#    )
-
-
-#    return model_output
-
-
+tofood_model = Llama(model_path=my_model_path, n_ctx=CONTEXT_SIZE)
 
 if __name__ == "__main__":
 
@@ -40,8 +19,8 @@ if __name__ == "__main__":
     }
     
    prompt ="""
-   "instruction:     Cek resep ini. Kira-kira bagus nggak buat ditawarkan ke pelanggan kita? 'Yes' atau 'No,' plus saran ya."
-    input: Resep:   Tahu Isi Sayur; Bahan Utama: Tahu Kopong; Bahan: Tahu kopong, wortel parut, tauge, buncis cincang, bawang putih, tepung terigu, bumbu instan gorengan; Langkah: Tumis sayuran, campur bumbu instan, isi ke dalam tahu, balur tepung terigu, goreng sampai kecokelatan."
+   instruction:Resep ini cukup sederhana. Layak nggak untuk restoran kita? 'Yes' atau 'No' dan beri masukan.
+   Resep: Sayur Lodeh; Bahan Utama: Labu Siam; Bahan: Labu siam, santan, tahu, tempe, cabai, bawang merah, bawang putih; Langkah: Masak labu dan tahu dengan santan dan bumbu hingga matang.
    """
    
 #    res = tofood_model(prompt, **generation_kwargs) 

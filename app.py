@@ -11,39 +11,36 @@ from llama_cpp import Llama
 
 
 
-my_model_path = "./model/tofood.Q4_K_M.gguf"
-CONTEXT_SIZE = 10000
+my_model_path = "./model/unsloth.Q4_K_M.gguf"
+CONTEXT_SIZE = 30000
+
+tofood_model = Llama(model_path=my_model_path,n_ctx=CONTEXT_SIZE)
 
 
-
-tofood_model = Llama(model_path=my_model_path, n_ctx=CONTEXT_SIZE)
 
 app = FastAPI()
 
-@app.get("/test")
+@app.get("/api/prompt")
 async def index():
+    
     generation_kwargs = {
-        "max_tokens":20000,
-        "stop":["</s>"],
-        "echo":False, # Echo the prompt in the output
-        "top_k":1 # This is essentially greedy decoding, since the model will always return the highest-probability token. Set this value > 1 for sampling decoding
-    }
-    # prompt ="""
-    # "instruction:     Cek resep ini. Kira-kira bagus nggak buat ditawarkan ke pelanggan kita? 'Yes' atau 'No,' plus saran ya."
-    # input: Resep:   Tahu Isi Sayur; Bahan Utama: Tahu Kopong; Bahan: Tahu kopong, wortel parut, tauge, buncis cincang, bawang putih, tepung terigu, bumbu instan gorengan; Langkah: Tumis sayuran, campur bumbu instan, isi ke dalam tahu, balur tepung terigu, goreng sampai kecokelatan."
-    # """
+    "max_tokens":10000,
+    "stop":["</s>"],
+    "echo":False,
+    "top_k":1
+}
     prompt ="""
-    instruction:Gimana kalau yang ini? Layak kita jual atau tidak? 'Yes'/'No,' terus kasih alasannya dan tips, dong.
-    input:Resep: Rendang Daging; Bahan Utama: Daging Sapi Bahan: Daging sapi, bumbu rendang ,  santan,  serai,daun salam, cabai giling; Langkah: Rebus daging dengan bumbu rendang yang sudah dibuat sendiri, masukkan santan, aduk hingga mengental, masak sampai daging empuk.
+    instruction:Saya memiliki sebuah resep baru. 'Yes' atau 'No' dan beri masukan.
+    input:Resep: Pempek; Bahan Utama: Ikan tenggiri; Bahan: ikan tenggiri, bawang merah, tepung, bawang putih, garam; Langkah: Aduk ikan dan tepung, kemudian bentuk,rebus, dan goreng, kemudian sajikan.
     """
     print("Processing....")
+    
     res = tofood_model(prompt, **generation_kwargs) 
     final_output: str = res["choices"][0]["text"]
     
     return {
-        "Ki": final_output,
+        "Output": final_output,
     }
-
 
 
 @app.get("/sample")
