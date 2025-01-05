@@ -1,5 +1,5 @@
-from fastapi import FastAPI, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from fastapi import FastAPI, Depends, HTTPException, status, Security
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm, APIKeyHeader
 from typing import Optional
 from datetime import datetime, timedelta, timezone
 from jose import JWTError, jwt
@@ -14,7 +14,7 @@ tofood_model = Llama(model_path=my_model_path,n_ctx=CONTEXT_SIZE)
 
 app = FastAPI()
 
-# ? modelnya
+
 class User(BaseModel):
     username: str
 
@@ -25,7 +25,7 @@ class PromptRequest(BaseModel):
     instruction: str
     input: str
 
-# ? fungsi utils
+
 def get_password_hash(password):
     pwd_bytes = password.encode('utf-8')
     salt = bcrypt.gensalt()
@@ -39,7 +39,7 @@ def verify_password(plain_password, hashed_password):
     hashed_password = hashed_password.encode('utf-8')
     return bcrypt.checkpw(password_byte_enc, hashed_password)
 
-# ? dummy database, remind me (future self) untuk hubungin ke external database
+# ? dummy database
 dummy_users_db = {
     "diddy": {
         "username": "diddy",
@@ -47,12 +47,12 @@ dummy_users_db = {
     }
 }
 
-# ? config untuk JWT
+# ? config JWT
 SECRET_KEY = "diddy-secret-key"
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
-#? OAuth2 Scheme dari FastAPI security (liat docs)
+#? OAuth2 Scheme dari FastAPI security 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 def get_user(username: str):
@@ -86,7 +86,7 @@ async def get_name(name: str):
     }
     
 
-# ? endpoint untuk dapetin toketn
+# ? endpoint for tokens
 @app.post("/api/token")
 async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     user = authenticate_user(form_data.username, form_data.password)
@@ -101,7 +101,7 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()):
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
-# ? fungsi untuk bantuin cek dependency/session
+# ? function for dependency/session
 async def get_current_user(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
@@ -119,14 +119,48 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
         raise credentials_exception
     return user
 
-# ? protected route untuk pengujian user yang eligible
+# ? protected route for testing
 @app.get("/api/protected-route")
 async def read_protected_route(current_user: User = Depends(get_current_user)):
     return {"message": f"Hello, {current_user.username}!"}
 
 
+
+
+#  api key stuffs starts here
+api_key_header = APIKeyHeader(name ="X-API-KEY")
+
+api_keys = {
+    "e54d4431-5dab-474e-b71a-0db1fcb9e659": "7oDYjo3d9r58EJKYi5x4E8",
+    "5f0c7127-3be9-4488-b801-c7b6415b45e9": "mUP7PpTHmFAkxcQLWKMY8t"
+}
+users = {
+    "7oDYjo3d9r58EJKYi5x4E8": {
+        "name": "Bob"
+    },
+    "mUP7PpTHmFAkxcQLWKMY8t": {
+        "name": "Alice"
+    },
+}
+def check_api_key(api_key: str):
+    return api_key in api_keys
+
+def get_user_from_api_key_db(api_key: str):
+    return users[api_keys[api_key]]
+
+def get_user_with_api_key(api_key_header: str = Security(api_key_header)):
+    if check_api_key(api_key_header):
+        user = get_user_from_api_key_db(api_key_header)
+        return user
+    raise HTTPException(
+        status_code=status.HTTP_401_UNAUTHORIZED,
+        detail="Missing or invalid API key"
+    )
+# api key stuffs ends here
+
+#? main endpoint for business logic
 @app.post("/api/prompt")
-async def get_prompt(request_body: PromptRequest):
+async def get_prompt(request_body: PromptRequest, _ :dict = Depends(get_user_with_api_key) ):
 
     prompt = f"""
 instruction:{request_body.instruction}
