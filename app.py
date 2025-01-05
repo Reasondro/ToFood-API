@@ -1,47 +1,46 @@
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
-
 from typing import Optional
 from datetime import datetime, timedelta, timezone
 from jose import JWTError, jwt
 from pydantic import BaseModel
 import bcrypt
-
 from llama_cpp import Llama
-
-
 
 my_model_path = "./model/unsloth.Q4_K_M.gguf"
 CONTEXT_SIZE = 30000
 
 tofood_model = Llama(model_path=my_model_path,n_ctx=CONTEXT_SIZE)
 
-
-
 app = FastAPI()
 
-@app.get("/api/prompt")
-async def index():
-    
+class PromptRequest(BaseModel):
+    instruction: str
+    input: str
+
+
+@app.post("/api/prompt")
+async def get_prompt(request_body: PromptRequest):
+
+    prompt = f"""
+instruction:{request_body.instruction}
+input:{request_body.input}
+"""
+
     generation_kwargs = {
-    "max_tokens":10000,
-    "stop":["</s>"],
-    "echo":False,
-    "top_k":1
-}
-    prompt ="""
-    instruction:Saya memiliki sebuah resep baru. 'Yes' atau 'No' dan beri masukan.
-    input:Resep: Pempek; Bahan Utama: Ikan tenggiri; Bahan: ikan tenggiri, bawang merah, tepung, bawang putih, garam; Langkah: Aduk ikan dan tepung, kemudian bentuk,rebus, dan goreng, kemudian sajikan.
-    """
+        "max_tokens": 10000,
+        "stop": ["</s>"],
+        "echo": False,
+        "top_k": 1
+    }
+
     print("Processing....")
-    
-    res = tofood_model(prompt, **generation_kwargs) 
+    res = tofood_model(prompt, **generation_kwargs)
     final_output: str = res["choices"][0]["text"]
     
     return {
         "Output": final_output,
     }
-
 
 @app.get("/sample")
 async def index():
@@ -55,25 +54,14 @@ async def get_name(name: str):
         "name": name,
     }
     
-
-    
 # ? modelnya
 class User(BaseModel):
     username: str
 
 class UserInDB(User):
     hashed_password: str
-    
-# ? urusan hashing / password
-# pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # ? fungsi utils
-# def get_password_hash(password):
-#     return pwd_context.hash(password)
-
-# def verify_password(plain_password, hashed_password):
-#     return pwd_context.verify(plain_password, hashed_password)
-
 def get_password_hash(password):
     pwd_bytes = password.encode('utf-8')
     salt = bcrypt.gensalt()
@@ -86,7 +74,6 @@ def verify_password(plain_password, hashed_password):
     password_byte_enc = plain_password.encode('utf-8')
     hashed_password = hashed_password.encode('utf-8')
     return bcrypt.checkpw(password_byte_enc, hashed_password)
-
 
 # ? cumn dummy db, remind me (future self) untuk hubungin ke external database
 dummy_users_db = {
@@ -103,7 +90,6 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 #? OAuth2 Scheme dari FastAPI security (liat docs)
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
 
 def get_user(username: str):
     user = dummy_users_db.get(username)
@@ -159,4 +145,3 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 @app.get("/api/protected-route")
 async def read_protected_route(current_user: User = Depends(get_current_user)):
     return {"message": f"Hello, {current_user.username}!"}
-
