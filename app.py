@@ -14,52 +14,16 @@ tofood_model = Llama(model_path=my_model_path,n_ctx=CONTEXT_SIZE)
 
 app = FastAPI()
 
-class PromptRequest(BaseModel):
-    instruction: str
-    input: str
-
-
-@app.post("/api/prompt")
-async def get_prompt(request_body: PromptRequest):
-
-    prompt = f"""
-instruction:{request_body.instruction}
-input:{request_body.input}
-"""
-
-    generation_kwargs = {
-        "max_tokens": 10000,
-        "stop": ["</s>"],
-        "echo": False,
-        "top_k": 1
-    }
-
-    print("Processing....")
-    res = tofood_model(prompt, **generation_kwargs)
-    final_output: str = res["choices"][0]["text"]
-    
-    return {
-        "Output": final_output,
-    }
-
-@app.get("/sample")
-async def index():
-    return {
-        "info": "Try /hello/Sandro for parameterized route.",
-    }
-    
-@app.get("/hello/{name}")
-async def get_name(name: str):
-    return {
-        "name": name,
-    }
-    
 # ? modelnya
 class User(BaseModel):
     username: str
 
 class UserInDB(User):
     hashed_password: str
+
+class PromptRequest(BaseModel):
+    instruction: str
+    input: str
 
 # ? fungsi utils
 def get_password_hash(password):
@@ -75,7 +39,7 @@ def verify_password(plain_password, hashed_password):
     hashed_password = hashed_password.encode('utf-8')
     return bcrypt.checkpw(password_byte_enc, hashed_password)
 
-# ? cumn dummy db, remind me (future self) untuk hubungin ke external database
+# ? dummy database, remind me (future self) untuk hubungin ke external database
 dummy_users_db = {
     "diddy": {
         "username": "diddy",
@@ -107,6 +71,20 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     expire = datetime.now(timezone.utc) + (expires_delta or timedelta(minutes=15))
     to_encode.update({"exp": expire})
     return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+
+@app.get("/sample")
+async def index():
+    return {
+        "info": "Try /hello/Sandro for parameterized route.",
+    }
+    
+@app.get("/hello/{name}")
+async def get_name(name: str):
+    return {
+        "name": name,
+    }
+    
 
 # ? endpoint untuk dapetin toketn
 @app.post("/api/token")
@@ -145,3 +123,27 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
 @app.get("/api/protected-route")
 async def read_protected_route(current_user: User = Depends(get_current_user)):
     return {"message": f"Hello, {current_user.username}!"}
+
+
+@app.post("/api/prompt")
+async def get_prompt(request_body: PromptRequest):
+
+    prompt = f"""
+instruction:{request_body.instruction}
+input:{request_body.input}
+"""
+
+    generation_kwargs = {
+        "max_tokens": 10000,
+        "stop": ["</s>"],
+        "echo": False,
+        "top_k": 1
+    }
+
+    print("Processing....")
+    res = tofood_model(prompt, **generation_kwargs)
+    final_output: str = res["choices"][0]["text"]
+    
+    return {
+        "Output": final_output,
+    }
