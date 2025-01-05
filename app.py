@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Depends, HTTPException, status, Security
+from fastapi import FastAPI, Depends, HTTPException, status, Security, Response
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm, APIKeyHeader
 from typing import Optional
 from datetime import datetime, timedelta, timezone
@@ -14,6 +14,14 @@ my_model_path = "./model/unsloth.Q4_K_M.gguf"
 CONTEXT_SIZE = 30000
 
 tofood_model = Llama(model_path=my_model_path,n_ctx=CONTEXT_SIZE)
+
+# ? config JWT
+SECRET_KEY = "diddy-secret-key"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 # 2 hari (belom permanen)
+
+#? OAuth2 Scheme dari FastAPI security 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app = FastAPI()
 
@@ -37,6 +45,10 @@ class Customers(SQLModel, table =True):
 class CustomerCreate(BaseModel):
     name: str
     password: str
+
+class RevokedToken(SQLModel, table=True):
+    id: str = Field(primary_key=True)
+    token: str = Field(index=True)
 
 def get_password_hash(password):
     pwd_bytes = password.encode('utf-8')
@@ -97,14 +109,6 @@ async def get_current_customer(token: str = Depends(oauth2_scheme)):
     
     return customer
 
-# ? config JWT
-SECRET_KEY = "diddy-secret-key"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 2880 # 2 hari (belom permanen)
-
-#? OAuth2 Scheme dari FastAPI security 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
-
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     to_encode = data.copy()
     expire = datetime.now(timezone.utc) + (expires_delta or timedelta(minutes=15))
@@ -131,7 +135,7 @@ def get_service_with_api_key(api_key: str = Security(api_key_header)):
         return result
 
 
-# "start" of the program
+#? "start" of the program
 sqlite_file_name = "database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 
@@ -209,6 +213,32 @@ def get_my_profile(current_customer: Customers = Depends(get_current_customer)):
         "id": current_customer.id,
         "name": current_customer.name
     }
+    
+@app.post("/api/customers/logout")
+def logout_customer(
+    current_customer: Customers = Depends(get_current_customer),
+    token: str = Depends(oauth2_scheme)
+):
+    """
+    Memasukkan token saat ini ke blacklist.
+    Sehingga user tidak bisa menggunakan token setelah logout.
+    """
+    with Session(engine) as session:
+        # Simpan token di DB
+        revoked = RevokedToken(
+            id=str(uuid4()),
+            token=token
+        )
+        session.add(revoked)
+        session.commit()
+    return {"message": f"User {current_customer.name} logged out and token revoked."}
+    
+# ? see api keys list
+@app.get("/api/api-keys")
+def read_api_keys():
+    with Session(engine) as session:
+        apikeys = session.exec(select(APIKeys)).all()
+        return apikeys
 
 # ? generate api key stuffs
 @app.post("/api/api-keys/generate")
@@ -231,16 +261,30 @@ def generate_api_key(req: APIKeyGenerateRequest):
         "api_key": new_api_key_value
     }
     
-# ? see api keys list
-@app.get("/api/api-keys")
-def read_api_keys():
-    with Session(engine) as session:
-        apikeys = session.exec(select(APIKeys)).all()
-        return apikeys
 
 # ? main stuffs
-@app.post("/api/prompt")
+@app.post("/api/services/prompt")
 async def get_prompt(request_body: PromptRequest, _ :dict = Depends(get_service_with_api_key) ):
+    prompt = f"""
+instruction:{request_body.instruction}
+input:{request_body.input}
+"""
+    generation_kwargs = {
+        "max_tokens": 10000,
+        "stop": ["</s>"],
+        "echo": False,
+        "top_k": 1
+    }
+    print("Processing....")
+    res = tofood_model(prompt, **generation_kwargs)
+    final_output: str = res["choices"][0]["text"]
+    
+    return {
+        "Output": final_output,
+    }
+
+@app.post("/api/customers/prompt")
+async def get_prompt(request_body: PromptRequest, _ :dict = Depends(get_current_customer) ):
     prompt = f"""
 instruction:{request_body.instruction}
 input:{request_body.input}
