@@ -1,0 +1,57 @@
+from sqlmodel import Field, Session, SQLModel, create_engine, select
+from fastapi import FastAPI
+
+class APIKeys(SQLModel, table =True):
+    id: str | None = Field(default=None, primary_key=True)
+    name: str = Field(index=True)
+    api_key: str 
+
+class Customers(SQLModel, table =True):
+    id: str | None = Field(default=None, primary_key=True)
+    name: str = Field(index=True)
+    hashed_password: str
+      
+sqlite_file_name = "database.db"
+sqlite_url = f"sqlite:///{sqlite_file_name}"
+
+connect_args = {"check_same_thread": False}
+engine = create_engine(sqlite_url, echo=True, connect_args=connect_args)
+
+def create_db_and_tables():
+    SQLModel.metadata.create_all(engine)
+
+app = FastAPI()
+
+
+@app.on_event("startup")
+def on_startup():
+    create_db_and_tables()
+
+@app.post("/APIKeys/")
+def create_api_key(apikey: APIKeys):
+    with Session(engine) as session:
+        session.add(apikey)
+        session.commit()
+        session.refresh(apikey)
+        return apikey
+
+@app.get("/APIKeys/")
+def read_api_keys():
+    with Session(engine) as session:
+        apikeys = session.exec(select(APIKeys)).all()
+        return apikeys
+    
+    
+@app.post("/Customers/")
+def create_customer(customer: Customers):
+    with Session(engine) as session:
+        session.add(customer)
+        session.commit()
+        session.refresh(customer)
+        return customer
+    
+@app.get("/Customers/")
+def read_customers():
+    with Session(engine) as session:
+        customers = session.exec(select(Customers)).all()
+        return customers

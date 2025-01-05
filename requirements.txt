@@ -5,3 +5,4 @@ passlib[bcrypt]
 python-multipart
 numpy
 llama-cpp-python
+sqlmodel
