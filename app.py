@@ -90,25 +90,6 @@ def authenticate_customer(username: str, password: str) -> Customers | None:
         return None
     return customer
 
-# async def get_current_customer(token: str = Depends(oauth2_scheme)):
-#     credentials_exception = HTTPException(
-#         status_code=status.HTTP_401_UNAUTHORIZED,
-#         detail="Could not validate credentials",
-#     )
-#     try:
-#         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-#         username: str = payload.get("sub")
-#         if username is None:
-#             raise credentials_exception
-#     except JWTError:
-#         raise credentials_exception
-    
-#     customer = get_customer_by_name(username)
-#     if not customer:
-#         raise credentials_exception
-    
-#     return customer
-
 async def get_current_customer(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
