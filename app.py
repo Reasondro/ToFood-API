@@ -17,28 +17,26 @@ tofood_model = Llama(model_path=my_model_path,n_ctx=CONTEXT_SIZE)
 
 app = FastAPI()
 
-class User(BaseModel):
-    username: str
-
-class UserInDB(User):
-    hashed_password: str
-
 class PromptRequest(BaseModel):
     instruction: str
     input: str
-
 
 class APIKeys(SQLModel, table =True):
     id: str= Field(primary_key=True)
     name: str = Field(index=True)
     api_key: str 
+    
+class APIKeyGenerateRequest(BaseModel):
+    name: str
 
-# TODO implement like api keys (database)
 class Customers(SQLModel, table =True):
     id: str = Field(primary_key=True)
     name: str = Field(index=True)
     hashed_password: str
-
+    
+class CustomerCreate(BaseModel):
+    name: str
+    password: str
 
 def get_password_hash(password):
     pwd_bytes = password.encode('utf-8')
@@ -47,47 +45,40 @@ def get_password_hash(password):
     string_password = hashed_password.decode('utf8')
     return string_password
 
-
 def verify_password(plain_password, hashed_password):
     password_byte_enc = plain_password.encode('utf-8')
     hashed_password = hashed_password.encode('utf-8')
     return bcrypt.checkpw(password_byte_enc, hashed_password)
 
-# ? dummy database
-dummy_users_db = {
-    "diddy": {
-        "username": "diddy",
-        "hashed_password": get_password_hash("secret"),
-    }
-}
+def create_customer_in_db(name: str, hashed_password: str) -> Customers:
+    new_id = str(uuid4())
+    new_customer = Customers(
+        id=new_id,
+        name=name,
+        hashed_password=hashed_password
+    )
+    with Session(engine) as session:
+        session.add(new_customer)
+        session.commit()
+        session.refresh(new_customer)
+        return new_customer
 
-# ? config JWT
-SECRET_KEY = "diddy-secret-key"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+def get_customer_by_name(name: str) -> Customers | None:
+    with Session(engine) as session:
+        customer = session.exec(
+            select(Customers).where(Customers.name == name)
+        ).first()
+        return customer
 
-#? OAuth2 Scheme dari FastAPI security 
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+def authenticate_customer(username: str, password: str) -> Customers | None:
+    customer = get_customer_by_name(username)
+    if not customer:
+        return None
+    if not verify_password(password, customer.hashed_password):
+        return None
+    return customer
 
-def get_user(username: str):
-    user = dummy_users_db.get(username)
-    if user:
-        return UserInDB(**user)
-
-def authenticate_user(username: str, password: str):
-    user = get_user(username)
-    if not user or not verify_password(password, user.hashed_password):
-        return False
-    return user
-
-def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
-    to_encode = data.copy()
-    expire = datetime.now(timezone.utc) + (expires_delta or timedelta(minutes=15))
-    to_encode.update({"exp": expire})
-    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
-
-# ? function for dependency/session
-async def get_current_user(token: str = Depends(oauth2_scheme)):
+async def get_current_customer(token: str = Depends(oauth2_scheme)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
@@ -99,14 +90,30 @@ async def get_current_user(token: str = Depends(oauth2_scheme)):
             raise credentials_exception
     except JWTError:
         raise credentials_exception
-    user = get_user(username)
-    if user is None:
+    
+    customer = get_customer_by_name(username)
+    if not customer:
         raise credentials_exception
-    return user
+    
+    return customer
+
+# ? config JWT
+SECRET_KEY = "diddy-secret-key"
+ALGORITHM = "HS256"
+ACCESS_TOKEN_EXPIRE_MINUTES = 2880 # 2 hari (belom permanen)
+
+#? OAuth2 Scheme dari FastAPI security 
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
+
+def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
+    to_encode = data.copy()
+    expire = datetime.now(timezone.utc) + (expires_delta or timedelta(minutes=15))
+    to_encode.update({"exp": expire})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
 
 api_key_header = APIKeyHeader(name ="X-API-KEY")
 
-def get_user_with_api_key(api_key: str = Security(api_key_header)):
+def get_service_with_api_key(api_key: str = Security(api_key_header)):
     if not api_key:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -123,6 +130,8 @@ def get_user_with_api_key(api_key: str = Security(api_key_header)):
             )
         return result
 
+
+# "start" of the program
 sqlite_file_name = "database.db"
 sqlite_url = f"sqlite:///{sqlite_file_name}"
 
@@ -149,46 +158,60 @@ async def get_name(name: str):
         "name": name,
     }
     
-@app.post("/api/customers")
-def create_customer(customer: Customers):
-    with Session(engine) as session:
-        session.add(customer)
-        session.commit()
-        session.refresh(customer)
-        return customer
-    
 @app.get("/api/customers")
 def read_customers():
     with Session(engine) as session:
         customers = session.exec(select(Customers)).all()
         return customers
-    
 
-# ? endpoint for tokens
-@app.post("/api/token")
-async def login(form_data: OAuth2PasswordRequestForm = Depends()):
-    user = authenticate_user(form_data.username, form_data.password)
+@app.post("/api/customers/register")
+def register_customer(data: CustomerCreate):
+    existing = get_customer_by_name(data.name)
+    if existing:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Customer with name={data.name} already exists."
+        )
+    hashed = get_password_hash(data.password)
+    new_customer = create_customer_in_db(data.name, hashed)
+    return {
+        "id": new_customer.id,
+        "name": new_customer.name,
+        "message": "Customer created successfully."
+    }
+
+@app.post("/api/customers/token")
+def login_customer(form_data: OAuth2PasswordRequestForm = Depends()):
+    """
+    Menerima form field 'username' dan 'password'.
+    Jika valid, buat JWT token dan kembalikan.
+    """
+    user = authenticate_customer(form_data.username, form_data.password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid credentials",
         )
+    # Buat token
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
-        data={"sub": user.username}, expires_delta=access_token_expires
+        data={"sub": user.name},  # 'sub' diisi user.name
+        expires_delta=access_token_expires
     )
     return {"access_token": access_token, "token_type": "bearer"}
 
-# ? protected route for testing
-@app.get("/api/protected-route")
-async def read_protected_route(current_user: User = Depends(get_current_user)):
-    return {"message": f"Hello, {current_user.username}!"}
+@app.get("/api/customers/me")
+def get_my_profile(current_customer: Customers = Depends(get_current_customer)):
+    """
+    Hanya bisa diakses jika JWT token valid di 'Authorization: Bearer <token>'.
+    """
+    return {
+        "id": current_customer.id,
+        "name": current_customer.name
+    }
 
 # ? generate api key stuffs
-class APIKeyGenerateRequest(BaseModel):
-    name: str
-    
-@app.post("/api/generate-api-key")
+@app.post("/api/api-keys/generate")
 def generate_api_key(req: APIKeyGenerateRequest):
     new_api_key_value = secrets.token_hex(16)
     new_id = str(uuid4())
@@ -217,20 +240,17 @@ def read_api_keys():
 
 # ? main stuffs
 @app.post("/api/prompt")
-async def get_prompt(request_body: PromptRequest, _ :dict = Depends(get_user_with_api_key) ):
-
+async def get_prompt(request_body: PromptRequest, _ :dict = Depends(get_service_with_api_key) ):
     prompt = f"""
 instruction:{request_body.instruction}
 input:{request_body.input}
 """
-
     generation_kwargs = {
         "max_tokens": 10000,
         "stop": ["</s>"],
         "echo": False,
         "top_k": 1
     }
-
     print("Processing....")
     res = tofood_model(prompt, **generation_kwargs)
     final_output: str = res["choices"][0]["text"]
