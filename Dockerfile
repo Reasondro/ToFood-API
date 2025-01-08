@@ -1,46 +1,20 @@
 FROM python:3.11
 
-# Buat direktori kerja
+# Install OS-level dependencies
+RUN apt-get update && apt-get install -y libpq-dev curl && rm -rf /var/lib/apt/lists/*
+
+# Set the working directory
 WORKDIR /app
 
-# Salin file requirements terlebih dahulu (untuk caching layer Docker)
+# Copy dependencies and install them
 COPY requirements.txt .
-
-# Install dependencies
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-# Salin seluruh isi project (termasuk app.py, model, dsb.) ke /app
+# Copy application files
 COPY . .
 
-# Expose port 80 (opsional, tapi bagus untuk dokumentasi Docker)
+# Expose the port used by the app
 EXPOSE 80
 
-# Jalankan uvicorn
+# Start the Uvicorn server
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "80"]
-
-
-
-
-
-
-
-
-# FROM python:3.11
-
-# # Set the working directory in the container
-# WORKDIR /code
-
-# # Copy the requirements file into the container
-# COPY requirements.txt .
-
-# # Install the dependencies
-# RUN pip install --no-cache-dir --upgrade -r requirements.txt
-
-# # Copy the rest of the application code into the container
-# COPY . .
-
-# # Expose the port that the app will run on
-# EXPOSE 3100
-
-# # Command to run the application using Uvicorn
-# CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "3100", "--workers", "4"]
