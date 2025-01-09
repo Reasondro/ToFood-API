@@ -23,7 +23,7 @@ load_dotenv()
 # ? config JWT
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 60 # 2 hari (belom permanen)
+ACCESS_TOKEN_EXPIRE_MINUTES = 60 #? semnetara 60 menit
 
 
 FURINA_API_KEY = os.getenv("FURINA_API_KEY")
@@ -218,7 +218,7 @@ def login_customer(form_data: OAuth2PasswordRequestForm = Depends()):
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid credentials",
         )
-    # Buat token
+    #? buat token
     access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     access_token = create_access_token(
         data={"sub": user.name},  # 'sub' diisi user.name
@@ -246,7 +246,7 @@ def logout_customer(
     Sehingga user tidak bisa menggunakan token setelah logout.
     """
     with Session(engine) as session:
-        # Simpan token di DB
+        #? simpen token di DB
         revoked = RevokedToken(
             id=str(uuid4()),
             token=token
@@ -472,11 +472,6 @@ async def get_prompt_decrypt(
     body: DecryptRequest,
     _: dict = Depends(get_current_customer)
 ):
-    """
-    1) Menerima key_id, cipher_text, dan iv
-    2) Kirim ke teman service (furina) untuk didekripsi
-    3) Kembalikan hasil dekripsi ke end user
-    """
     decrypt_service_url = "https://furina-encryption-service.codebloop.my.id/api/decrypt"
 
     headers = {
