@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 my_model_path = "./model/unsloth.Q4_K_M.gguf"
 CONTEXT_SIZE = 25000
 
-tofood_model = Llama(model_path=my_model_path,n_ctx=CONTEXT_SIZE, n_threads = 2)
+tofood_model = Llama(model_path=my_model_path,n_ctx=CONTEXT_SIZE, n_threads = 4)
 
 load_dotenv()
 
