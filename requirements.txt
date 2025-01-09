@@ -7,3 +7,4 @@ numpy
 llama-cpp-python
 sqlmodel
 requests
+python-dotenv

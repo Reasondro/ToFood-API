@@ -10,16 +10,25 @@ from sqlmodel import Field, Session, SQLModel, create_engine, select
 from uuid import uuid4
 import secrets
 import requests
+import os
+from dotenv import load_dotenv
 
 my_model_path = "./model/unsloth.Q4_K_M.gguf"
 CONTEXT_SIZE = 30000
 
 tofood_model = Llama(model_path=my_model_path,n_ctx=CONTEXT_SIZE)
 
+load_dotenv()
+
 # ? config JWT
-SECRET_KEY = "diddy-secret-key"
+SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 # 2 hari (belom permanen)
+
+
+FURINA_API_KEY = os.getenv("FURINA_API_KEY")
+if not FURINA_API_KEY:
+    raise ValueError("FURINA_API_KEY is not set in .env or environment variables.")
 
 #? OAuth2 Scheme dari FastAPI security 
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
@@ -316,11 +325,10 @@ input:{request_body.input}
     res = tofood_model(prompt, **generation_kwargs)
     final_output: str = res["choices"][0]["text"]
     encryption_service_url = "https://furina-encryption-service.codebloop.my.id/api/encrypt"
-    api_key_for_furina = "furina_25dbdea1e5b047cdb611c8524173a3ee"
 
     headers = {
         "accept": "application/json",
-        "furina-encryption-service": api_key_for_furina,
+        "furina-encryption-service": FURINA_API_KEY,
         "Content-Type": "application/json"
     }
     payload = {
@@ -356,11 +364,10 @@ async def get_prompt_decrypt(
     _: dict = Depends(get_service_with_api_key)
 ):
     decrypt_service_url = "https://furina-encryption-service.codebloop.my.id/api/decrypt"
-    api_key_for_furina = "furina_25dbdea1e5b047cdb611c8524173a3ee"
 
     headers = {
         "accept": "application/json",
-        "furina-encryption-service": api_key_for_furina,
+        "furina-encryption-service": FURINA_API_KEY,
         "Content-Type": "application/json"
     }
     payload = {
@@ -426,11 +433,10 @@ input:{request_body.input}
     res = tofood_model(prompt, **generation_kwargs)
     final_output: str = res["choices"][0]["text"]
     encryption_service_url = "https://furina-encryption-service.codebloop.my.id/api/encrypt"
-    api_key_for_furina = "furina_25dbdea1e5b047cdb611c8524173a3ee"
 
     headers = {
         "accept": "application/json",
-        "furina-encryption-service": api_key_for_furina,
+        "furina-encryption-service": FURINA_API_KEY,
         "Content-Type": "application/json"
     }
     payload = {
@@ -472,11 +478,10 @@ async def get_prompt_decrypt(
     3) Kembalikan hasil dekripsi ke end user
     """
     decrypt_service_url = "https://furina-encryption-service.codebloop.my.id/api/decrypt"
-    api_key_for_furina = "furina_25dbdea1e5b047cdb611c8524173a3ee"
 
     headers = {
         "accept": "application/json",
-        "furina-encryption-service": api_key_for_furina,
+        "furina-encryption-service": FURINA_API_KEY,
         "Content-Type": "application/json"
     }
     payload = {
