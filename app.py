@@ -9,6 +9,7 @@ from llama_cpp import Llama
 from sqlmodel import Field, Session, SQLModel, create_engine, select
 from uuid import uuid4
 import secrets
+import requests
 
 my_model_path = "./model/unsloth.Q4_K_M.gguf"
 CONTEXT_SIZE = 30000
@@ -36,6 +37,11 @@ class APIKeys(SQLModel, table =True):
     
 class APIKeyGenerateRequest(BaseModel):
     name: str
+
+class DecryptRequest(BaseModel):
+    key_id: str
+    cipher_text: str
+    iv: str
 
 class Customers(SQLModel, table =True):
     id: str = Field(primary_key=True)
@@ -287,11 +293,102 @@ input:{request_body.input}
     final_output: str = res["choices"][0]["text"]
     
     return {
-        "Output": final_output,
+        "recipe_result": final_output,
+        
+    }
+    
+@app.post("/api/services/prompt-secret")
+async def get_prompt_secret(
+    request_body: PromptRequest,
+    _ :dict = Depends(get_service_with_api_key)
+):
+    prompt = f"""
+instruction:{request_body.instruction}
+input:{request_body.input}
+"""
+    generation_kwargs = {
+        "max_tokens": 10000,
+        "stop": ["</s>"],
+        "echo": False,
+        "top_k": 1
+    }
+    print("Processing....")
+    res = tofood_model(prompt, **generation_kwargs)
+    final_output: str = res["choices"][0]["text"]
+    encryption_service_url = "https://furina-encryption-service.codebloop.my.id/api/encrypt"
+    api_key_for_furina = "furina_25dbdea1e5b047cdb611c8524173a3ee"
+
+    headers = {
+        "accept": "application/json",
+        "furina-encryption-service": api_key_for_furina,
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "text": final_output,
+        "sensitivity": "medium"
     }
 
+    try:
+        encrypt_response = requests.post(
+            encryption_service_url,
+            headers=headers,
+            json=payload,
+            timeout=10
+        )
+        encrypt_response.raise_for_status()  # if status != 200
+    except requests.RequestException as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error calling encryption service: {str(e)}"
+        )
+
+
+    encrypted_data = encrypt_response.json()
+    return {
+        "key_id": encrypted_data["key_id"],
+        "cipher_recipe_result": encrypted_data["cipher_text"],
+        "iv": encrypted_data["iv"]
+    }
+    
+@app.post("/api/services/prompt-decrypt")
+async def get_prompt_decrypt(
+    body: DecryptRequest,
+    _: dict = Depends(get_service_with_api_key)
+):
+    decrypt_service_url = "https://furina-encryption-service.codebloop.my.id/api/decrypt"
+    api_key_for_furina = "furina_25dbdea1e5b047cdb611c8524173a3ee"
+
+    headers = {
+        "accept": "application/json",
+        "furina-encryption-service": api_key_for_furina,
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "key_id": body.key_id,
+        "cipher_text": body.cipher_text,
+        "iv": body.iv
+    }
+    try:
+        response = requests.post(
+            decrypt_service_url,
+            headers=headers,
+            json=payload,
+            timeout=10
+        )
+        response.raise_for_status()
+    except requests.RequestException as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error calling decryption service: {str(e)}"
+        )
+    decrypted_data = response.json()
+    return {
+        "decrypted_cipher_recipe_result": decrypted_data["text"]
+    }
+
+
 @app.post("/api/customers/prompt")
-async def get_prompt(request_body: PromptRequest, _ :dict = Depends(get_current_customer) ):
+async def get_prompt(request_body: PromptRequest, _ :dict = Depends(get_current_customer)):
     prompt = f"""
 instruction:{request_body.instruction}
 input:{request_body.input}
@@ -307,5 +404,102 @@ input:{request_body.input}
     final_output: str = res["choices"][0]["text"]
     
     return {
-        "Output": final_output,
+        "recipe_result": final_output,
+    }
+
+@app.post("/api/customers/prompt-secret")
+async def get_prompt_secret(
+    request_body: PromptRequest,
+    _: dict = Depends(get_current_customer)
+):
+    prompt = f"""
+instruction:{request_body.instruction}
+input:{request_body.input}
+"""
+    generation_kwargs = {
+        "max_tokens": 10000,
+        "stop": ["</s>"],
+        "echo": False,
+        "top_k": 1
+    }
+    print("Processing....")
+    res = tofood_model(prompt, **generation_kwargs)
+    final_output: str = res["choices"][0]["text"]
+    encryption_service_url = "https://furina-encryption-service.codebloop.my.id/api/encrypt"
+    api_key_for_furina = "furina_25dbdea1e5b047cdb611c8524173a3ee"
+
+    headers = {
+        "accept": "application/json",
+        "furina-encryption-service": api_key_for_furina,
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "text": final_output,
+        "sensitivity": "medium"
+    }
+
+    try:
+        encrypt_response = requests.post(
+            encryption_service_url,
+            headers=headers,
+            json=payload,
+            timeout=10
+        )
+        encrypt_response.raise_for_status()  # if status != 200
+    except requests.RequestException as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error calling encryption service: {str(e)}"
+        )
+
+
+    encrypted_data = encrypt_response.json()
+    return {
+        "key_id": encrypted_data["key_id"],
+        "cipher_recipe_result": encrypted_data["cipher_text"],
+        "iv": encrypted_data["iv"]
+    }
+    
+
+@app.post("/api/customers/prompt-decrypt")
+async def get_prompt_decrypt(
+    body: DecryptRequest,
+    _: dict = Depends(get_current_customer)
+):
+    """
+    1) Menerima key_id, cipher_text, dan iv
+    2) Kirim ke teman service (furina) untuk didekripsi
+    3) Kembalikan hasil dekripsi ke end user
+    """
+    decrypt_service_url = "https://furina-encryption-service.codebloop.my.id/api/decrypt"
+    api_key_for_furina = "furina_25dbdea1e5b047cdb611c8524173a3ee"
+
+    headers = {
+        "accept": "application/json",
+        "furina-encryption-service": api_key_for_furina,
+        "Content-Type": "application/json"
+    }
+    payload = {
+        "key_id": body.key_id,
+        "cipher_text": body.cipher_text,
+        "iv": body.iv
+    }
+
+    try:
+        response = requests.post(
+            decrypt_service_url,
+            headers=headers,
+            json=payload,
+            timeout=10
+        )
+        response.raise_for_status()
+    except requests.RequestException as e:
+        raise HTTPException(
+            status_code=500,
+            detail=f"Error calling decryption service: {str(e)}"
+        )
+    decrypted_data = response.json()
+
+    return {
+      "decrypted_cipher_recipe_result": decrypted_data["text"]
     }

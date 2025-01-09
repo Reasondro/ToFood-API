@@ -6,3 +6,4 @@ python-multipart
 numpy
 llama-cpp-python
 sqlmodel
+requests
