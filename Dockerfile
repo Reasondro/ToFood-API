@@ -11,7 +11,7 @@ RUN pip install --no-cache-dir --upgrade -r requirements.txt
 COPY . .
 
 # Expose the port used by the app
-EXPOSE 80
+EXPOSE 8025
 
 # Start the Uvicorn server
 CMD ["uvicorn", "app:app", "--host", "0.0.0.0", "--port", "8025"]

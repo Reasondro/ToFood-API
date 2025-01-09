@@ -12,11 +12,11 @@ import secrets
 import requests
 import os
 from dotenv import load_dotenv
-
+# hi
 my_model_path = "./model/unsloth.Q4_K_M.gguf"
-CONTEXT_SIZE = 30000
+CONTEXT_SIZE = 25000
 
-tofood_model = Llama(model_path=my_model_path,n_ctx=CONTEXT_SIZE)
+tofood_model = Llama(model_path=my_model_path,n_ctx=CONTEXT_SIZE, n_threads = 2)
 
 load_dotenv()
 
@@ -343,7 +343,7 @@ input:{request_body.input}
             json=payload,
             timeout=10
         )
-        encrypt_response.raise_for_status()  # if status != 200
+        encrypt_response.raise_for_status() 
     except requests.RequestException as e:
         raise HTTPException(
             status_code=500,
