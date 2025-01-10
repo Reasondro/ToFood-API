@@ -1,5 +1,6 @@
 from fastapi import FastAPI, Depends, HTTPException, status, Security, Response
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm, APIKeyHeader
+from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional
 from datetime import datetime, timedelta, timezone
 from jose import JWTError, jwt
@@ -34,6 +35,15 @@ if not FURINA_API_KEY:
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
 app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # ? f it (use only for testing)
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class PromptRequest(BaseModel):
     instruction: str
