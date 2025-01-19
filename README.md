@@ -135,7 +135,7 @@ Lisensi dari proyek ini sesuai dengan peraturan yang ada di dalam repository Git
 ## Contact
 Untuk pertanyaan atau dukungan, silakan hubungi:
 - **Alessandro Jusack Hasian** (18222025)
-- Email: [email kamu]
+- Email: 18222025@std.stei.itb.ac.id
 - Institut Teknologi Bandung - Sekolah Teknik Elektro dan Informatika
 
 ---
